@@ -1,0 +1,42 @@
+{
+	"name": "array.from",
+	"version": "0.1.0",
+	"description": "A robust & optimized `Array.from` polyfill, based on the ECMAScript 6 specification.",
+	"homepage": "http://mths.be/array-from",
+	"main": "array-from.js",
+	"keywords": [
+		"string",
+		"unicode",
+		"es6",
+		"ecmascript",
+		"polyfill"
+	],
+	"licenses": [
+		{
+			"type": "MIT",
+			"url": "http://mths.be/mit"
+		}
+	],
+	"author": {
+		"name": "Mathias Bynens",
+		"url": "http://mathiasbynens.be/"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/mathiasbynens/Array.from.git"
+	},
+	"bugs": {
+		"url": "https://github.com/mathiasbynens/Array.from/issues"
+	},
+	"files": [
+		"LICENSE-MIT.txt",
+		"array-from.js"
+	],
+	"directories": {
+		"test": "tests"
+	},
+	"scripts": {
+		"test": "node tests/tests.js",
+		"cover": "istanbul cover --report html --verbose --dir coverage tests/tests.js"
+	}
+}
