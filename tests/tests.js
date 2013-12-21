@@ -32,15 +32,21 @@ assertDeepEquals(Array.from({ '0': 'a', '1': 'b', 'length': 2 }, function(x) { r
 assertThrows(function() { Array.from({}, 'foo', 'x'); }, TypeError);
 
 // These tests take way too long to execute, sadly:
-// assertEquals(Array.from({ 'length': 0xFFFFFFFF }).length, 0xFFFFFFFF);
-// var Constructor = function(length) {
-// 	this.length = length;
-// 	return this;
-// };
-// assertEquals(Array.from.call(Constructor, { 'length': 0xFFFFFFFF }).length, 0xFFFFFFFF);
+assertEquals(Array.from({ 'length': 0xFFFFFFFF }).length, 0xFFFFFFFF);
+console.log('ok'); // output something so Travis doesn’t freak out
+var Constructor = function(length) {
+	this.length = length;
+	return this;
+};
+assertEquals(Array.from.call(Constructor, { 'length': 0xFFFFFFFF }).length, 0xFFFFFFFF);
+console.log('ok'); // output something so Travis doesn’t freak out
 assertThrows(function() { Array.from({ 'length': 0xFFFFFFFF + 1 }); }, RangeError);
-// assertEquals(Array.from.call(Constructor, { 'length': 0xFFFFFFFF + 1 }).length, 0xFFFFFFFF + 1 );
-// assertEquals(Array.from.call(Constructor, { 'length': 0x1FFFFFFFFFFFFF }).length, 0x1FFFFFFFFFFFFF);
-// assertEquals(Array.from.call(Constructor, { 'length': 0x1FFFFFFFFFFFFF + 1 }).length, 0x1FFFFFFFFFFFFF);
+console.log('ok'); // output something so Travis doesn’t freak out
+assertEquals(Array.from.call(Constructor, { 'length': 0xFFFFFFFF + 1 }).length, 0xFFFFFFFF + 1 );
+console.log('ok'); // output something so Travis doesn’t freak out
+assertEquals(Array.from.call(Constructor, { 'length': 0x1FFFFFFFFFFFFF }).length, 0x1FFFFFFFFFFFFF);
+console.log('ok'); // output something so Travis doesn’t freak out
+assertEquals(Array.from.call(Constructor, { 'length': 0x1FFFFFFFFFFFFF + 1 }).length, 0x1FFFFFFFFFFFFF);
+console.log('ok'); // output something so Travis doesn’t freak out
 
 assertDeepEquals(Array.from.call(null, { 'length': 1, '0': 'a' }), ['a']);
