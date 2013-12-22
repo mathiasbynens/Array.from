@@ -46,3 +46,11 @@ assertThrows(function() { Array.from({ 'length': 0xFFFFFFFF + 1 }); }, RangeErro
 assertDeepEquals(Array.from.call(null, { 'length': 1, '0': 'a' }), ['a']);
 
 assertEquals(Array.from({ '__proto__': { '0': 'abc', 'length': 1 } })[0], 'abc');
+
+// Ensure no setters are called for the indexes
+Object.defineProperty(Array.prototype, '0', {
+	'set': function(x) {
+		throw Error('Setter called: ' + x);
+	}
+});
+assertDeepEquals(Array.from({ '0': 'abc', 'length': 1 }), ['abc']);

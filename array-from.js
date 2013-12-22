@@ -1,6 +1,7 @@
 /*! http://mths.be/array-from v0.1.0 by @mathias */
 if (!Array.from) {
 	(function() {
+		var defineProperty = Object.defineProperty;
 		var toLength = function(value) {
 			var number = Number(value);
 			var length;
@@ -47,15 +48,24 @@ if (!Array.from) {
 				if (k in items) { // note: `HasProperty` (not `HasOwnProperty`)
 					kValue = items[k];
 					mappedValue = mapping ? mapFn.call(T, kValue, k, items) : kValue;
-					A[k] = mappedValue;
+					if (defineProperty) {
+						defineProperty(A, k, {
+							'value': mappedValue,
+							'writable': true,
+							'enumerable': true,
+							'configurable': true
+						});
+					} else {
+						A[k] = mappedValue;
+					}
 				}
 				++k;
 			}
 			A.length = len;
 			return A;
 		};
-		if (Object.defineProperty) {
-			Object.defineProperty(Array, 'from', {
+		if (defineProperty) {
+			defineProperty(Array, 'from', {
 				'value': from,
 				'configurable': true,
 				'writable': true
