@@ -44,3 +44,5 @@ assertThrows(function() { Array.from({ 'length': 0xFFFFFFFF + 1 }); }, RangeErro
 // assertEquals(Array.from.call(Constructor, { 'length': 0x1FFFFFFFFFFFFF + 1 }).length, 0x1FFFFFFFFFFFFF);
 
 assertDeepEquals(Array.from.call(null, { 'length': 1, '0': 'a' }), ['a']);
+
+assertEquals(Array.from({ '__proto__': { '0': 'abc', 'length': 1 } })[0], 'abc');

@@ -1,7 +1,6 @@
 /*! http://mths.be/array-from v0.1.0 by @mathias */
 if (!Array.from) {
 	(function() {
-		var hasOwnProperty = {}.hasOwnProperty;
 		var toLength = function(value) {
 			var number = Number(value);
 			var length;
@@ -45,7 +44,7 @@ if (!Array.from) {
 			var kValue;
 			var mappedValue;
 			while (k < len) {
-				if (hasOwnProperty.call(items, k)) {
+				if (k in items) { // note: `HasProperty` (not `HasOwnProperty`)
 					kValue = items[k];
 					mappedValue = mapping ? mapFn.call(T, kValue, k, items) : kValue;
 					A[k] = mappedValue;
