@@ -1,6 +1,7 @@
 /*! http://mths.be/array-from v0.1.0 by @mathias */
 if (!Array.from) {
 	(function() {
+		'use strict';
 		var defineProperty = Object.defineProperty;
 		var toLength = function(value) {
 			var number = Number(value);
