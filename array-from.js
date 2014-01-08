@@ -2,7 +2,15 @@
 if (!Array.from) {
 	(function() {
 		'use strict';
-		var defineProperty = Object.defineProperty;
+		var defineProperty = (function() {
+			// IE 8 only supports `Object.defineProperty` on DOM elements
+			try {
+				var object = {};
+				var $defineProperty = Object.defineProperty;
+				var result = $defineProperty(object, object, object) && $defineProperty;
+			} catch(error) {}
+			return result;
+		}());
 		var toLength = function(value) {
 			var number = Number(value);
 			var length;
