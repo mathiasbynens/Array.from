@@ -1,4 +1,4 @@
-# ES6 `Array.from` polyfill [![Build status](https://travis-ci.org/mathiasbynens/Array.from.png?branch=master)](https://travis-ci.org/mathiasbynens/Array.from)
+# ES6 `Array.from` polyfill [![Build status](https://travis-ci.org/mathiasbynens/Array.from.svg?branch=master)](https://travis-ci.org/mathiasbynens/Array.from)
 
 A robust & optimized ES3-compatible polyfill for [the `Array.from` method in ECMAScript 6](http://people.mozilla.org/~jorendorff/es6-draft.html#sec-array.from).
 
@@ -28,7 +28,7 @@ require('Array.from');
 
 ## Author
 
-| [![twitter/mathias](http://gravatar.com/avatar/24e08a9ea84deb17ae121074d0f17125?s=70)](http://twitter.com/mathias "Follow @mathias on Twitter") |
+| [![twitter/mathias](https://gravatar.com/avatar/24e08a9ea84deb17ae121074d0f17125?s=70)](https://twitter.com/mathias "Follow @mathias on Twitter") |
 |---|
 | [Mathias Bynens](http://mathiasbynens.be/) |
 
