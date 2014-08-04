@@ -66,7 +66,7 @@ test('it includes Object.prototype values when it is polluted', function (t) {
 });
 
 test('works with arraylike objects', function (t) {
-	t.deepEqual(Array.from({ length: 1 }), Array(1));
+	t.deepEqual(Array.from({ length: 1 }), [void 0]);
 	t.deepEqual(Array.from({ 0: 'a', 1: 'b', length: 2 }), ['a', 'b']);
 	t.end();
 });
