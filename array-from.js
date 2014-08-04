@@ -1,8 +1,8 @@
 /*! http://mths.be/array-from v0.1.0 by @mathias */
 if (!Array.from) {
-	(function() {
+	(function () {
 		'use strict';
-		var defineProperty = (function() {
+		var defineProperty = (function () {
 			// IE 8 only supports `Object.defineProperty` on DOM elements
 			try {
 				var object = {};
@@ -26,7 +26,7 @@ if (!Array.from) {
 			}
 			return Math.min(length, 0x1FFFFFFFFFFFFF);
 		};
-		var isConstructor = function(Constructor) {
+		var isConstructor = function (Constructor) {
 			try {
 				new Constructor();
 				return true;
@@ -34,7 +34,7 @@ if (!Array.from) {
 				return false;
 			}
 		};
-		var from = function(arrayLike) {
+		var from = function (arrayLike) {
 			var Me = this;
 			if (arrayLike == null) {
 				throw TypeError();
