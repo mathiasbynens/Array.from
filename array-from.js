@@ -57,12 +57,14 @@ if (!Array.from) {
 			var A = isConstructor(Me) ? Object(new Me(len)) : new Array(len);
 			var k = 0;
 			var kValue;
-			var mappedValue;
 			while (k < len) {
 				if (k in items) { // note: `HasProperty` (not `HasOwnProperty`)
 					kValue = items[k];
-					mappedValue = mapping ? mapFn.call(T, kValue, k) : kValue;
-					A[k] = mappedValue;
+					if (mapFn) {
+						A[k] = typeof T === 'undefined' ? mapFn(kValue, k) : mapFn.call(T, kValue, k);
+					} else {
+						A[k] = kValue;
+					}
 				}
 				++k;
 			}
