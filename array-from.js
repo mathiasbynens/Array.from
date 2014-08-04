@@ -37,7 +37,7 @@ if (!Array.from) {
 		var from = function (arrayLike) {
 			var Me = this;
 			if (arrayLike == null) {
-				throw TypeError();
+				throw TypeError("Array.from requires an array-like object - not null or undefined");
 			}
 			var items = Object(arrayLike);
 			var mapFn = arguments.length > 1 ? arguments[1] : undefined;
