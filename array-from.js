@@ -57,16 +57,7 @@ if (!Array.from) {
 				if (k in items) { // note: `HasProperty` (not `HasOwnProperty`)
 					kValue = items[k];
 					mappedValue = mapping ? mapFn.call(T, kValue, k, items) : kValue;
-					if (defineProperty) {
-						defineProperty(A, k, {
-							'value': mappedValue,
-							'writable': true,
-							'enumerable': true,
-							'configurable': true
-						});
-					} else {
-						A[k] = mappedValue;
-					}
+					A[k] = mappedValue;
 				}
 				++k;
 			}
