@@ -15,20 +15,16 @@ if (!Array.from) {
 		var isCallable = function (fn) {
 			return typeof fn === 'function' || toStr.call(fn) === '[object Function]';
 		};
-		var toLength = function(value) {
+		var toInteger = function (value) {
 			var number = Number(value);
-			var length;
-			if (number != number) { // better `isNaN`
-				length = 0;
-			} else if (number == 0 || !isFinite(number)) {
-				length = number;
-			} else {
-				length = (number < 0 ? -1 : +1) * Math.floor(Math.abs(number));
-			}
-			if (length <= 0) {
-				return 0;
-			}
-			return Math.min(length, 0x1FFFFFFFFFFFFF);
+			if (isNaN(number)) { return 0; }
+			if (number === 0 || !isFinite(number)) { return number; }
+			return (number > 0 ? 1 : -1) * Math.floor(Math.abs(number));
+		};
+		var maxSafeInteger = Math.pow(2, 53) - 1;
+		var toLength = function (value) {
+			var len = toInteger(value);
+			return Math.min(Math.max(len, 0), maxSafeInteger);
 		};
 		var isConstructor = function (Constructor) {
 			try {
