@@ -40,14 +40,19 @@ if (!Array.from) {
 				throw TypeError("Array.from requires an array-like object - not null or undefined");
 			}
 			var items = Object(arrayLike);
-			var mapFn = arguments.length > 1 ? arguments[1] : undefined;
-			var T = arguments.length > 2 ? arguments[2] : undefined;
-			var mapping = true;
-			if (mapFn === undefined) {
-				mapping = false;
-			} else if (!isCallable(mapFn)) {
-				throw TypeError('Array.from: when provided, the second argument must be a function');
+			var mapping = arguments.length > 1;
+
+			var mapFn, T;
+			if (arguments.length > 1) {
+				mapFn = arguments[1];
+				if (!isCallable(mapFn)) {
+					throw new TypeError('Array.from: when provided, the second argument must be a function');
+				}
+				if (arguments.length > 2) {
+					T = arguments[2];
+				}
 			}
+
 			var len = toLength(items.length);
 			var A = isConstructor(Me) ? new Me(len) : new Array(len);
 			var k = 0;
