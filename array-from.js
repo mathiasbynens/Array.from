@@ -54,7 +54,7 @@ if (!Array.from) {
 			}
 
 			var len = toLength(items.length);
-			var A = isConstructor(Me) ? new Me(len) : new Array(len);
+			var A = isConstructor(Me) ? Object(new Me(len)) : new Array(len);
 			var k = 0;
 			var kValue;
 			var mappedValue;
