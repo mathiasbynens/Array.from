@@ -11,61 +11,51 @@ if (!Array.from) {
 			} catch(error) {}
 			return result;
 		}());
-		var toLength = function(value) {
-			var number = Number(value);
-			var length;
-			if (number != number) { // better `isNaN`
-				length = 0;
-			} else if (number == 0 || !isFinite(number)) {
-				length = number;
-			} else {
-				length = (number < 0 ? -1 : +1) * Math.floor(Math.abs(number));
-			}
-			if (length <= 0) {
-				return 0;
-			}
-			return Math.min(length, 0x1FFFFFFFFFFFFF);
+		var toStr = Object.prototype.toString;
+		var isCallable = function (fn) {
+			return typeof fn === 'function' || toStr.call(fn) === '[object Function]';
 		};
-		var isConstructor = function (Constructor) {
-			try {
-				new Constructor();
-				return true;
-			} catch(_) {
-				return false;
-			}
+		var toInteger = function (value) {
+			var number = Number(value);
+			if (isNaN(number)) { return 0; }
+			if (number === 0 || !isFinite(number)) { return number; }
+			return (number > 0 ? 1 : -1) * Math.floor(Math.abs(number));
+		};
+		var maxSafeInteger = Math.pow(2, 53) - 1;
+		var toLength = function (value) {
+			var len = toInteger(value);
+			return Math.min(Math.max(len, 0), maxSafeInteger);
 		};
 		var from = function (arrayLike) {
-			var Me = this;
+			var C = this;
 			if (arrayLike == null) {
-				throw TypeError();
+				throw TypeError("Array.from requires an array-like object - not null or undefined");
 			}
 			var items = Object(arrayLike);
-			var mapFn = arguments.length > 1 ? arguments[1] : undefined;
-			var T = arguments.length > 2 ? arguments[2] : undefined;
-			var mapping = true;
-			if (mapFn === undefined) {
-				mapping = false;
-			} else if (typeof mapFn != 'function') {
-				throw TypeError();
+			var mapping = arguments.length > 1;
+
+			var mapFn, T;
+			if (arguments.length > 1) {
+				mapFn = arguments[1];
+				if (!isCallable(mapFn)) {
+					throw new TypeError('Array.from: when provided, the second argument must be a function');
+				}
+				if (arguments.length > 2) {
+					T = arguments[2];
+				}
 			}
+
 			var len = toLength(items.length);
-			var A = isConstructor(Me) ? new Me(len) : new Array(len);
+			var A = isCallable(C) ? Object(new C(len)) : new Array(len);
 			var k = 0;
 			var kValue;
-			var mappedValue;
 			while (k < len) {
 				if (k in items) { // note: `HasProperty` (not `HasOwnProperty`)
 					kValue = items[k];
-					mappedValue = mapping ? mapFn.call(T, kValue, k, items) : kValue;
-					if (defineProperty) {
-						defineProperty(A, k, {
-							'value': mappedValue,
-							'writable': true,
-							'enumerable': true,
-							'configurable': true
-						});
+					if (mapFn) {
+						A[k] = typeof T === 'undefined' ? mapFn(kValue, k) : mapFn.call(T, kValue, k);
 					} else {
-						A[k] = mappedValue;
+						A[k] = kValue;
 					}
 				}
 				++k;

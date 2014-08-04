@@ -49,13 +49,3 @@ assertEquals(Array.from({ '__proto__': { '0': 'abc', 'length': 1 } })[0], 'abc')
 
 assertThrows(function() { Array.from.call(function() { return Object.freeze({}); }, {}); }, TypeError);
 
-// Ensure no setters are called for the indexes
-// Ensure no setters are called for the indexes
-var MyType = function() {};
-Object.defineProperty(MyType.prototype, '0', {
-	'set': function(x) {
-		throw Error('Setter called: ' + x);
-	}
-});
-assertDeepEquals(Array.from.call(MyType, { '0': 'abc', 'length': 1 }), { '0': 'abc', 'length': 1 });
-
