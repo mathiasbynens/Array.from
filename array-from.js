@@ -61,7 +61,7 @@ if (!Array.from) {
 			while (k < len) {
 				if (k in items) { // note: `HasProperty` (not `HasOwnProperty`)
 					kValue = items[k];
-					mappedValue = mapping ? mapFn.call(T, kValue, k, items) : kValue;
+					mappedValue = mapping ? mapFn.call(T, kValue, k) : kValue;
 					A[k] = mappedValue;
 				}
 				++k;
