@@ -11,6 +11,10 @@ if (!Array.from) {
 			} catch(error) {}
 			return result;
 		}());
+		var toStr = Object.prototype.toString;
+		var isCallable = function (fn) {
+			return typeof fn === 'function' || toStr.call(fn) === '[object Function]';
+		};
 		var toLength = function(value) {
 			var number = Number(value);
 			var length;
@@ -45,8 +49,8 @@ if (!Array.from) {
 			var mapping = true;
 			if (mapFn === undefined) {
 				mapping = false;
-			} else if (typeof mapFn != 'function') {
-				throw TypeError();
+			} else if (!isCallable(mapFn)) {
+				throw TypeError('Array.from: when provided, the second argument must be a function');
 			}
 			var len = toLength(items.length);
 			var A = isConstructor(Me) ? new Me(len) : new Array(len);
