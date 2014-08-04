@@ -26,16 +26,8 @@ if (!Array.from) {
 			var len = toInteger(value);
 			return Math.min(Math.max(len, 0), maxSafeInteger);
 		};
-		var isConstructor = function (Constructor) {
-			try {
-				new Constructor();
-				return true;
-			} catch(_) {
-				return false;
-			}
-		};
 		var from = function (arrayLike) {
-			var Me = this;
+			var C = this;
 			if (arrayLike == null) {
 				throw TypeError("Array.from requires an array-like object - not null or undefined");
 			}
@@ -54,7 +46,7 @@ if (!Array.from) {
 			}
 
 			var len = toLength(items.length);
-			var A = isConstructor(Me) ? Object(new Me(len)) : new Array(len);
+			var A = isCallable(C) ? Object(new C(len)) : new Array(len);
 			var k = 0;
 			var kValue;
 			while (k < len) {
