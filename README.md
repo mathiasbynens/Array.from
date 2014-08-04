@@ -35,3 +35,4 @@ require('Array.from');
 ## License
 
 This polyfill is available under the [MIT](http://mths.be/mit) license.
+

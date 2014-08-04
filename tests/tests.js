@@ -58,3 +58,4 @@ Object.defineProperty(MyType.prototype, '0', {
 	}
 });
 assertDeepEquals(Array.from.call(MyType, { '0': 'abc', 'length': 1 }), { '0': 'abc', 'length': 1 });
+

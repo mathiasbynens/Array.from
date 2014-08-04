@@ -40,3 +40,4 @@
 		"cover": "istanbul cover --report html --verbose --dir coverage tests/tests.js"
 	}
 }
+
