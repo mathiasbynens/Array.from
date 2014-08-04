@@ -38,6 +38,9 @@
 	"scripts": {
 		"test": "node tests/tests.js",
 		"cover": "istanbul cover --report html --verbose --dir coverage tests/tests.js"
+	},
+	"devDependencies": {
+		"istanbul": "~0.3.0"
 	}
 }
 
