@@ -79,6 +79,18 @@ test('works with arraylike objects', function (t) {
 	t.end();
 });
 
+test('throws with an invalid mapping function', function (t) {
+	t.throws(function () { Array.from([], undefined); }, TypeError);
+	t.throws(function () { Array.from([], null); }, TypeError);
+	t.throws(function () { Array.from([], false); }, TypeError);
+	t.throws(function () { Array.from([], true); }, TypeError);
+	t.throws(function () { Array.from([], {}); }, TypeError);
+	t.throws(function () { Array.from([], /a/g); }, TypeError);
+	t.throws(function () { Array.from([], 'foo'); }, TypeError);
+	t.throws(function () { Array.from([], 42); }, TypeError);
+	t.end();
+});
+
 test('works with a mapping function', function (t) {
 	var original = [1, 2, 3];
 	var actual = Array.from(original, function (value, index) {
