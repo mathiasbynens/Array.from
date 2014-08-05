@@ -50,14 +50,19 @@ if (!Array.from) {
 			var len = toLength(items.length);
 			var A = isCallable(C) ? Object(new C(len)) : new Array(len);
 			var k = 0;
-			var kValue;
+			var kValue, mappedValue;
 			while (k < len) {
 				kValue = items[k];
 				if (mapFn) {
-					A[k] = typeof T === 'undefined' ? mapFn(kValue, k) : mapFn.call(T, kValue, k);
+					mappedValue = typeof T === 'undefined' ? mapFn(kValue, k) : mapFn.call(T, kValue, k);
 				} else {
-					A[k] = kValue;
+					mappedValue = kValue;
 				}
+				defineProperty(A, k, {
+					value: mappedValue,
+					configurable: true,
+					enumerable: true
+				});
 				++k;
 			}
 			A.length = len;

@@ -134,6 +134,20 @@ test('works when called from a non-constructor context', function (t) {
 	t.end();
 });
 
+test('no setters are called for indexes', { skip: !Object.defineProperty }, function (t) {
+	var MyType = function () {};
+	Object.defineProperty(MyType.prototype, '0', {
+		set: function (x) { throw new Error('setter called: ' + x); }
+	});
+	var myInstance = new MyType();
+	t.throws(function () { myInstance[0] = 'foo'; });
+
+	var actual = Array.from.call(MyType, { 0: 'abc', length: 1 });
+	t.deepEqual(actual, { 0: 'abc', length: 1 });
+	t.ok(actual instanceof MyType);
+	t.end();
+});
+
 // These tests take way too long to execute, sadly:
 /*
 test.skip('works with very large lengths', function (t) {
