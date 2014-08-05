@@ -26,6 +26,14 @@ test('throws with invalid lengths', function (t) {
 	t.end();
 });
 
+test('swallows negative lengths', function (t) {
+	t.equal(Array.from({ length: -1 }).length, 0);
+	t.equal(Array.from({ length: -Infinity }).length, 0);
+	t.equal(Array.from({ length: -0 }).length, 0);
+	t.equal(Array.from({ length: - 42}).length, 0);
+	t.end();
+});
+
 test('works with primitives', function (t) {
 	t.deepEqual(Array.from(false), []);
 	t.deepEqual(Array.from(true), []);
