@@ -9,7 +9,9 @@ if (!Array.from) {
 				var $defineProperty = Object.defineProperty;
 				var result = $defineProperty(object, object, object) && $defineProperty;
 			} catch(error) {}
-			return result;
+			return result || function put(object, key, descriptor) {
+				object[key] = descriptor.value;
+			};
 		}());
 		var toStr = Object.prototype.toString;
 		var isCallable = function (fn) {
@@ -61,14 +63,10 @@ if (!Array.from) {
 			A.length = len;
 			return A;
 		};
-		if (defineProperty) {
-			defineProperty(Array, 'from', {
-				'value': from,
-				'configurable': true,
-				'writable': true
-			});
-		} else {
-			Array.from = from;
-		}
+		defineProperty(Array, 'from', {
+			value: from,
+			configurable: true,
+			writable: true
+		});
 	}());
 }
