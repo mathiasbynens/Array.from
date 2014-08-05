@@ -36,11 +36,11 @@
 		"test": "tests"
 	},
 	"scripts": {
-		"test": "node tests/tests.js",
-		"cover": "istanbul cover --report html --verbose --dir coverage tests/tests.js"
+		"test": "node tests/*.js",
+		"cover": "covert tests/*.js"
 	},
 	"devDependencies": {
-		"istanbul": "~0.3.0",
+		"covert": "~0.4.0",
 		"tape": "~2.13.4"
 	}
 }

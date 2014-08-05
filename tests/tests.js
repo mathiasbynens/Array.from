@@ -26,6 +26,14 @@ test('throws with invalid lengths', function (t) {
 	t.end();
 });
 
+test('swallows negative lengths', function (t) {
+	t.equal(Array.from({ length: -1 }).length, 0);
+	t.equal(Array.from({ length: -Infinity }).length, 0);
+	t.equal(Array.from({ length: -0 }).length, 0);
+	t.equal(Array.from({ length: - 42}).length, 0);
+	t.end();
+});
+
 test('works with primitives', function (t) {
 	t.deepEqual(Array.from(false), []);
 	t.deepEqual(Array.from(true), []);
@@ -68,6 +76,18 @@ test('it includes Object.prototype values when it is polluted', function (t) {
 test('works with arraylike objects', function (t) {
 	t.deepEqual(Array.from({ length: 1 }), [void 0]);
 	t.deepEqual(Array.from({ 0: 'a', 1: 'b', length: 2 }), ['a', 'b']);
+	t.end();
+});
+
+test('throws with an invalid mapping function', function (t) {
+	t.throws(function () { Array.from([], undefined); }, TypeError);
+	t.throws(function () { Array.from([], null); }, TypeError);
+	t.throws(function () { Array.from([], false); }, TypeError);
+	t.throws(function () { Array.from([], true); }, TypeError);
+	t.throws(function () { Array.from([], {}); }, TypeError);
+	t.throws(function () { Array.from([], /a/g); }, TypeError);
+	t.throws(function () { Array.from([], 'foo'); }, TypeError);
+	t.throws(function () { Array.from([], 42); }, TypeError);
 	t.end();
 });
 
@@ -115,6 +135,7 @@ test('works when called from a non-constructor context', function (t) {
 });
 
 // These tests take way too long to execute, sadly:
+/*
 test.skip('works with very large lengths', function (t) {
 	t.equals(Array.from({ length: 0xFFFFFFFF }).length, 0xFFFFFFFF);
 	var Constructor = function (length) {
@@ -127,3 +148,4 @@ test.skip('works with very large lengths', function (t) {
 	t.equals(Array.from.call(Constructor, { length: 0x1FFFFFFFFFFFFF + 1 }).length, 0x1FFFFFFFFFFFFF);
 	t.end();
 });
+*/
