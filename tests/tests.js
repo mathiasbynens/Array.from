@@ -45,6 +45,12 @@ test('works with primitives', function (t) {
 	t.end();
 });
 
+test('works with strings', function (t) {
+	t.deepEqual(Array.from(''), []);
+	t.deepEqual(Array.from('abc'), 'abc'.split(''));
+	t.end();
+});
+
 test('works with objects', function (t) {
 	t.deepEqual(Array.from({}), []);
 	t.deepEqual(Array.from({ a: 1 }), []);
