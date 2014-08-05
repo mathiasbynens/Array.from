@@ -9,7 +9,9 @@ if (!Array.from) {
 				var $defineProperty = Object.defineProperty;
 				var result = $defineProperty(object, object, object) && $defineProperty;
 			} catch(error) {}
-			return result;
+			return result || function put(object, key, descriptor) {
+				object[key] = descriptor.value;
+			};
 		}());
 		var toStr = Object.prototype.toString;
 		var isCallable = function (fn) {
@@ -48,27 +50,28 @@ if (!Array.from) {
 			var len = toLength(items.length);
 			var A = isCallable(C) ? Object(new C(len)) : new Array(len);
 			var k = 0;
-			var kValue;
+			var kValue, mappedValue;
 			while (k < len) {
 				kValue = items[k];
 				if (mapFn) {
-					A[k] = typeof T === 'undefined' ? mapFn(kValue, k) : mapFn.call(T, kValue, k);
+					mappedValue = typeof T === 'undefined' ? mapFn(kValue, k) : mapFn.call(T, kValue, k);
 				} else {
-					A[k] = kValue;
+					mappedValue = kValue;
 				}
+				defineProperty(A, k, {
+					value: mappedValue,
+					configurable: true,
+					enumerable: true
+				});
 				++k;
 			}
 			A.length = len;
 			return A;
 		};
-		if (defineProperty) {
-			defineProperty(Array, 'from', {
-				'value': from,
-				'configurable': true,
-				'writable': true
-			});
-		} else {
-			Array.from = from;
-		}
+		defineProperty(Array, 'from', {
+			value: from,
+			configurable: true,
+			writable: true
+		});
 	}());
 }
