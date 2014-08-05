@@ -50,13 +50,11 @@ if (!Array.from) {
 			var k = 0;
 			var kValue;
 			while (k < len) {
-				if (k in items) { // note: `HasProperty` (not `HasOwnProperty`)
-					kValue = items[k];
-					if (mapFn) {
-						A[k] = typeof T === 'undefined' ? mapFn(kValue, k) : mapFn.call(T, kValue, k);
-					} else {
-						A[k] = kValue;
-					}
+				kValue = items[k];
+				if (mapFn) {
+					A[k] = typeof T === 'undefined' ? mapFn(kValue, k) : mapFn.call(T, kValue, k);
+				} else {
+					A[k] = kValue;
 				}
 				++k;
 			}
