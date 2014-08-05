@@ -115,6 +115,7 @@ test('works when called from a non-constructor context', function (t) {
 });
 
 // These tests take way too long to execute, sadly:
+/*
 test.skip('works with very large lengths', function (t) {
 	t.equals(Array.from({ length: 0xFFFFFFFF }).length, 0xFFFFFFFF);
 	var Constructor = function (length) {
@@ -127,3 +128,4 @@ test.skip('works with very large lengths', function (t) {
 	t.equals(Array.from.call(Constructor, { length: 0x1FFFFFFFFFFFFF + 1 }).length, 0x1FFFFFFFFFFFFF);
 	t.end();
 });
+*/
