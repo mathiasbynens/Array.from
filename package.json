@@ -40,6 +40,6 @@
 	},
 	"devDependencies": {
 		"covert": "~1.0.0",
-		"tape": "~2.14.0"
+		"tape": "~3.0.0"
 	}
 }
