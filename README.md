@@ -10,7 +10,7 @@ In a browser:
 <script src="array-from.js"></script>
 ```
 
-Via [npm](https://www.npmjs.org/):
+Via [npm](https://www.npmjs.com/):
 
 ```bash
 npm install array.from
