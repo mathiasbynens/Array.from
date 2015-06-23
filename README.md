@@ -1,6 +1,6 @@
 # ES6 `Array.from` polyfill [![Build status](https://travis-ci.org/mathiasbynens/Array.from.svg?branch=master)](https://travis-ci.org/mathiasbynens/Array.from)
 
-A robust & optimized ES3-compatible polyfill for [the `Array.from` method in ECMAScript 6](https://people.mozilla.org/~jorendorff/es6-draft.html#sec-array.from).
+A robust & optimized ES3-compatible polyfill for [the `Array.from` method in ECMAScript 6](http://ecma-international.org/ecma-262/6.0/#sec-array.from).
 
 ## Installation
 
