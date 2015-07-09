@@ -154,6 +154,12 @@ test('no setters are called for indexes', { skip: !Object.defineProperty }, func
 	t.end();
 });
 
+
+test('allows shift without throwing type error', function (t) { 
+	t.doesNotThrow(Array.prototype.shift.bind(Array.from([1,2,3])));
+	t.end();
+});
+
 // These tests take way too long to execute, sadly:
 /*
 test.skip('works with very large lengths', function (t) {

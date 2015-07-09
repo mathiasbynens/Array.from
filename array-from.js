@@ -68,7 +68,8 @@ if (!Array.from) {
 				defineProperty(A, k, {
 					'value': mappedValue,
 					'configurable': true,
-					'enumerable': true
+					'enumerable': true,
+					'writable': true
 				});
 				++k;
 			}
