@@ -155,7 +155,7 @@ test('no setters are called for indexes', { skip: !Object.defineProperty }, func
 });
 
 
-test('allows shift without throwing type error', function (t) { 
+test('allows shift without throwing type error', function (t) {
 	t.doesNotThrow(Array.prototype.shift.bind(Array.from([1,2,3])));
 	t.end();
 });
@@ -175,3 +175,12 @@ test.skip('works with very large lengths', function (t) {
 	t.end();
 });
 */
+
+test('returns the correct name when called with toString', function (t) {
+	function nameOf(fn) {
+		return Function.prototype.toString.call(fn).match(/function\s*([^\s]*)\(/)[1];
+	}
+
+	t.equal(nameOf(Array.from), 'from', 'hi')
+	t.end();
+});
