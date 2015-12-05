@@ -35,7 +35,7 @@ if (!Array.from) {
 			var len = toInteger(value);
 			return Math.min(Math.max(len, 0), maxSafeInteger);
 		};
-		var from = function from (arrayLike) {
+		var from = function from(arrayLike) {
 			var C = this;
 			if (arrayLike == null) {
 				throw new TypeError('`Array.from` requires an array-like object, not `null` or `undefined`');
