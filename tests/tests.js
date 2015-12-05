@@ -176,7 +176,9 @@ test.skip('works with very large lengths', function (t) {
 });
 */
 
-test('returns the correct name when called with toString', function (t) {
+var functionsHaveNames = function f() {}.name === 'f';
+
+test('returns the correct name when called with toString', { skip: !functionsHaveNames }, function (t) {
 	function nameOf(fn) {
 		return Function.prototype.toString.call(fn).match(/function\s*([^\s]*)\(/)[1];
 	}
