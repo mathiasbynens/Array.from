@@ -179,6 +179,6 @@ test.skip('works with very large lengths', function (t) {
 var functionsHaveNames = function f() {}.name === 'f';
 
 test('returns the correct name when called with toString', { skip: !functionsHaveNames }, function (t) {
-	t.equal(Array.from.name, 'from', 'Array#from has name "from"')
+	t.equal(Array.from.name, 'from', 'Array#from has name "from"');
 	t.end();
 });
