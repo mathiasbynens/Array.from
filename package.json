@@ -33,7 +33,7 @@
 		"cover": "covert tests/*.js"
 	},
 	"devDependencies": {
-		"covert": "^1.0.1",
-		"tape": "^4.0.0"
+		"covert": "^1.1.0",
+		"tape": "^4.2.2"
 	}
 }
