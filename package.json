@@ -1,6 +1,6 @@
 {
 	"name": "array.from",
-	"version": "0.2.0",
+	"version": "0.3.0",
 	"description": "A robust & optimized `Array.from` polyfill, based on the ECMAScript 6 specification.",
 	"homepage": "https://mths.be/array-from",
 	"main": "detect.js",
@@ -15,6 +15,17 @@
 		"name": "Mathias Bynens",
 		"url": "https://mathiasbynens.be/"
 	},
+    "contributors": [
+        {
+		    "name": "Mathias Bynens",
+		    "url": "https://mathiasbynens.be/"
+        },
+        {
+            "name": "Jordan Harband",
+            "email": "ljharb@gmail.com",
+            "url": "http://ljharb.codes"
+        }
+    ],
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/mathiasbynens/Array.from.git"
