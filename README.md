@@ -1,14 +1,22 @@
-# ES6 `Array.from` polyfill [![Build status](https://travis-ci.org/mathiasbynens/Array.from.svg?branch=master)](https://travis-ci.org/mathiasbynens/Array.from)
+#Array.from <sup>[![Version Badge][npm-version-svg]][package-url]</sup>
 
-A robust & optimized ES3-compatible polyfill for [the `Array.from` method in ECMAScript 6](http://ecma-international.org/ecma-262/6.0/#sec-array.from).
+[![Build Status][travis-svg]][travis-url]
+[![dependency status][deps-svg]][deps-url]
+[![dev dependency status][dev-deps-svg]][dev-deps-url]
+[![License][license-image]][license-url]
+[![Downloads][downloads-image]][downloads-url]
+
+[![npm badge][npm-badge-png]][package-url]
+
+A spec-compliant `Array.from` shim/polyfill/replacement that works as far down as ES3.
+
+This package implements the [es-shim API](https://github.com/es-shims/api) interface. It works in an ES3-supported environment and complies with the proposed [spec](http://www.ecma-international.org/ecma-262/6.0/#sec-array.from).
+
+The `Array.from()` method creates a new Array instance from an array-like or iterable object.
 
 ## Installation
 
 In a browser:
-
-```html
-<script src="array-from.js"></script>
-```
 
 Via [npm](https://www.npmjs.com/):
 
@@ -16,15 +24,36 @@ Via [npm](https://www.npmjs.com/):
 npm install array.from
 ```
 
-Then, in [Node.js](https://nodejs.org/):
+## Example
 
 ```js
-require('array.from');
+var from = require('array.from');
+var assert = require('assert');
 
-// On Windows and on Mac systems with default settings, case doesn’t matter,
-// which allows you to do this instead:
-require('Array.from');
+assert.deepEqual(from('abc'), ['a', 'b', 'c']);
 ```
+
+```js
+var from = require('array.from');
+var assert = require('assert');
+/* when Array#from is not present */
+delete Array.from;
+var shimmedFrom = from.shim();
+assert.equal(shimmedFrom, from.getPolyfill());
+assert.deepEqual(Array.from('foo'), from('foo'));
+```
+
+```js
+var from = require('array-from');
+var assert = require('assert');
+/* when Array#from is present */
+var shimmedFrom = from.shim();
+assert.equal(shimmedFrom, Array.from);
+assert.deepEqual(Array.from('abc'), from('abc'));
+```
+
+## Tests
+Simply clone the repo, `npm install`, and run `npm test`
 
 ## Author
 
@@ -35,3 +64,17 @@ require('Array.from');
 ## License
 
 This polyfill is available under the [MIT](https://mths.be/mit) license.
+
+[package-url]: https://npmjs.org/package/array.from
+[npm-version-svg]: http://versionbadg.es/mathiasbynens/Array.from.svg
+[travis-svg]: https://travis-ci.org/mathiasbynens/Array.from.svg
+[travis-url]: https://travis-ci.org/mathiasbynens/Array.from
+[deps-svg]: https://david-dm.org/mathiasbynens/Array.from.svg
+[deps-url]: https://david-dm.org/mathiasbynens/Array.from
+[dev-deps-svg]: https://david-dm.org/mathiasbynens/Array.from/dev-status.svg
+[dev-deps-url]: https://david-dm.org/mathiasbynens/Array.from#info=devDependencies
+[npm-badge-png]: https://nodei.co/npm/array.from.png?downloads=true&stars=true
+[license-image]: http://img.shields.io/npm/l/array.from.svg
+[license-url]: LICENSE
+[downloads-image]: http://img.shields.io/npm/dm/array.from.svg
+[downloads-url]: http://npm-stat.com/charts.html?package=array.from

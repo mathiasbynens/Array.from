@@ -15,17 +15,17 @@
 		"name": "Mathias Bynens",
 		"url": "https://mathiasbynens.be/"
 	},
-    "contributors": [
-        {
-		    "name": "Mathias Bynens",
-		    "url": "https://mathiasbynens.be/"
-        },
-        {
-            "name": "Jordan Harband",
-            "email": "ljharb@gmail.com",
-            "url": "http://ljharb.codes"
-        }
-    ],
+	"contributors": [
+		{
+			"name": "Mathias Bynens",
+			"url": "https://mathiasbynens.be/"
+		},
+		{
+			"name": "Jordan Harband",
+			"email": "ljharb@gmail.com",
+			"url": "http://ljharb.codes"
+		}
+	],
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/mathiasbynens/Array.from.git"
@@ -33,18 +33,25 @@
 	"bugs": "https://github.com/mathiasbynens/Array.from/issues",
 	"files": [
 		"LICENSE-MIT.txt",
-		"array-from.js",
-		"detect.js"
+		"implementation.js",
+		"index.js",
+		"polyfill.js",
+		"shim.js"
 	],
 	"directories": {
 		"test": "tests"
 	},
 	"scripts": {
-		"test": "node tests/*.js",
+		"test": "es-shim-api --bound && node tests/*.js",
 		"cover": "covert tests/*.js"
 	},
 	"devDependencies": {
+		"@es-shims/api": "^1.0.0",
 		"covert": "^1.1.0",
 		"tape": "^4.2.2"
+	},
+	"dependencies": {
+		"define-properties": "^1.1.2",
+		"es-abstract": "^1.5.0"
 	}
 }
