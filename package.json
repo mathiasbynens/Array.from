@@ -42,7 +42,8 @@
 		"test": "tests"
 	},
 	"scripts": {
-		"test": "es-shim-api --bound && node tests/*.js",
+		"test": "es-shim-api --bound && npm run tests-only",
+		"tests-only": "node tests/*.js",
 		"cover": "covert tests/*.js"
 	},
 	"devDependencies": {
