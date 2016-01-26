@@ -42,14 +42,17 @@
 		"test": "tests"
 	},
 	"scripts": {
-		"test": "es-shim-api --bound && npm run tests-only",
+		"test": "npm run lint && es-shim-api --bound && npm run tests-only",
 		"tests-only": "node tests/*.js",
-		"cover": "covert tests/*.js"
+		"cover": "covert tests/*.js",
+		"lint": "eslint *.js tests/*.js"
 	},
 	"devDependencies": {
 		"@es-shims/api": "^1.0.0",
 		"covert": "^1.1.0",
-		"tape": "^4.4.0"
+		"tape": "^4.4.0",
+		"eslint": "^1.10.3",
+		"@ljharb/eslint-config": "^1.6.1"
 	},
 	"dependencies": {
 		"define-properties": "^1.1.2",

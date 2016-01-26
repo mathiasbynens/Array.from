@@ -8,7 +8,7 @@ module.exports = function from(arrayLike) {
 		object[key] = descriptor.value;
 	};
 	var C = this;
-	if (arrayLike === null || arrayLike === undefined) {
+	if (arrayLike === null || typeof arrayLike === 'undefined') {
 		throw new TypeError('`Array.from` requires an array-like object, not `null` or `undefined`');
 	}
 	var items = ES.ToObject(arrayLike);
@@ -31,7 +31,7 @@ module.exports = function from(arrayLike) {
 	while (k < len) {
 		kValue = items[k];
 		if (mapFn) {
-			mappedValue = typeof T == 'undefined' ? mapFn(kValue, k) : ES.Call(mapFn, T, [kValue, k]);
+			mappedValue = typeof T === 'undefined' ? mapFn(kValue, k) : ES.Call(mapFn, T, [kValue, k]);
 		} else {
 			mappedValue = kValue;
 		}
@@ -41,7 +41,7 @@ module.exports = function from(arrayLike) {
 			'enumerable': true,
 			'writable': true
 		});
-		++k;
+		k += 1;
 	}
 	A.length = len;
 	return A;
