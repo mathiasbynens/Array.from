@@ -8,7 +8,7 @@ var getPolyfill = require('./polyfill');
 var shim = require('./shim');
 
 var boundFromShim = function from(array) {
-	return implementation(arguments);
+	return implementation.call(Array, arguments);
 };
 
 define(boundFromShim, {
