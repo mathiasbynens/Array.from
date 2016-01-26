@@ -2,22 +2,19 @@
 
 var ES = require('es-abstract/es6');
 
+var tryCall = function (fn) {
+	try {
+		fn();
+		return true;
+	} catch (e) {
+		return false;
+	}
+};
+
 module.exports = function getPolyfill() {
-	var implemented = ES.IsCallable(Array.from) && (function () {
-		try {
-			Array.from({ length: -Infinity });
-			return true;
-		} catch (e) {
-			return false;
-		}
-	})() && (function () {
-		try {
-			Array.from([], undefined);
-			return false;
-		} catch (e) {
-			return true;
-		}
-	})();
+	var implemented = ES.IsCallable(Array.from)
+		&& tryCall(function () { Array.from({ length: -Infinity }); })
+		&& !tryCall(function () { Array.from([], undefined); });
 
 	return implemented ? Array.from : require('./implementation');
 };
