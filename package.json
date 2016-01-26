@@ -48,7 +48,7 @@
 	"devDependencies": {
 		"@es-shims/api": "^1.0.0",
 		"covert": "^1.1.0",
-		"tape": "^4.2.2"
+		"tape": "^4.4.0"
 	},
 	"dependencies": {
 		"define-properties": "^1.1.2",
