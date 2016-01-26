@@ -1,3 +1,11 @@
+1.0.0 / 2016-01-26
+=================
+  * [breaking] conform to es-shim api contract
+  * [Fix] bound `Array.from` should have `Array` as the `this` value.
+  * [Dev Deps] update `tape`
+  * [Tests] up to `node` `v5.5`
+  * [Tests] add `npm run lint`
+
 0.3.0 / 2015-12-11
 =================
   * [New] Separate polyfill from feature detect (#21)
