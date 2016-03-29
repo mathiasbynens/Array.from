@@ -1,3 +1,8 @@
+1.0.1 / 2016-03-28
+=================
+  * [fix] fix "main" entry point
+  * [Tests] up to `node` `v5.9`, `v4.4`
+
 1.0.0 / 2016-01-26
 =================
   * [breaking] conform to es-shim api contract
