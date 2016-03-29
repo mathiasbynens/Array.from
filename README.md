@@ -44,7 +44,7 @@ assert.deepEqual(Array.from('foo'), from('foo'));
 ```
 
 ```js
-var from = require('array-from');
+var from = require('array.from');
 var assert = require('assert');
 /* when Array#from is present */
 var shimmedFrom = from.shim();
