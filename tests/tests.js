@@ -14,7 +14,7 @@ var runTests = function runTests(arrayFrom) {
 	var methodExists = ES.IsCallable(Array.from);
 
 	test('from is not enumerable', { 'skip': !methodExists }, function (t) {
-		t.notOk(Array.propertyIsEnumerable('from'));
+		t.notOk(Object.prototype.propertyIsEnumerable.call(Array, 'from'));
 		t.end();
 	});
 
@@ -158,8 +158,8 @@ var runTests = function runTests(arrayFrom) {
 
 		var actual = arrayFrom.call(MyType, { '0': 'abc', 'length': 1 });
 		var expected = new MyType();
-		Object.defineProperty(expected, 0, { value: 'abc', enumerable: true, configurable: true, writable: true });
-		Object.defineProperty(expected, 'length', { value: 1, enumerable: true, configurable: true, writable: true });
+		Object.defineProperty(expected, 0, { 'value': 'abc', 'enumerable': true, 'configurable': true, 'writable': true });
+		Object.defineProperty(expected, 'length', { 'value': 1, 'enumerable': true, 'configurable': true, 'writable': true });
 		t.deepEqual(actual, expected);
 		t.ok(actual instanceof MyType);
 		t.end();

@@ -6,9 +6,9 @@ var implementation = require('./implementation');
 var getPolyfill = require('./polyfill');
 var shim = require('./shim');
 
-/* eslint-disable no-unused-vars */
+// eslint-disable-next-line no-unused-vars
 var boundFromShim = function from(array) {
-/* eslint-enable no-unused-vars */
+    // eslint-disable-next-line no-invalid-this
 	return implementation.apply(this || Array, arguments);
 };
 
