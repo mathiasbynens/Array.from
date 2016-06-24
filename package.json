@@ -48,11 +48,11 @@
 		"lint": "eslint *.js tests/*.js"
 	},
 	"devDependencies": {
-		"@es-shims/api": "^1.0.0",
+		"@es-shims/api": "^1.2.0",
 		"covert": "^1.1.0",
-		"tape": "^4.4.0",
-		"eslint": "^1.10.3",
-		"@ljharb/eslint-config": "^1.6.1"
+		"tape": "^4.6.0",
+		"eslint": "^2.13.1",
+		"@ljharb/eslint-config": "^5.0.0"
 	},
 	"dependencies": {
 		"define-properties": "^1.1.2",
