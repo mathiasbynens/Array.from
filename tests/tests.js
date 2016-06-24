@@ -157,7 +157,10 @@ var runTests = function runTests(arrayFrom) {
 		t.throws(function () { myInstance[0] = 'foo'; });
 
 		var actual = arrayFrom.call(MyType, { '0': 'abc', 'length': 1 });
-		t.deepEqual(actual, { '0': 'abc', 'length': 1 });
+		var expected = new MyType();
+		Object.defineProperty(expected, 0, { value: 'abc', enumerable: true, configurable: true, writable: true });
+		Object.defineProperty(expected, 'length', { value: 1, enumerable: true, configurable: true, writable: true });
+		t.deepEqual(actual, expected);
 		t.ok(actual instanceof MyType);
 		t.end();
 	});
@@ -191,9 +194,11 @@ var runTests = function runTests(arrayFrom) {
 	});
 };
 
-var from = require('../index');
+var from = require('../');
 
 runTests(from.implementation);
+
+runTests(from);
 
 runTests(from.getPolyfill());
 
