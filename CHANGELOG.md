@@ -1,3 +1,11 @@
+1.0.2 / 2016-06-23
+=================
+  * [Fix] bound shim at entry point was double-wrapping arguments (#26)
+  * [Tests] up to `node` `v6.2`
+  * [Tests] Fix linting errors
+  * [Deps] update `es-abstract`
+  * [Dev Deps] update `@es-shims/api`, `tape`, `eslint`, `@ljharb/eslint-config`
+
 1.0.1 / 2016-03-28
 =================
   * [fix] fix "main" entry point
