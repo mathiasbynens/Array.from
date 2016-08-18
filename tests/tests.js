@@ -52,6 +52,14 @@ var runTests = function runTests(arrayFrom) {
 	test('works with strings', function (t) {
 		t.deepEqual(arrayFrom(''), []);
 		t.deepEqual(arrayFrom('abc'), 'abc'.split(''));
+		t.deepEqual(arrayFrom('\na\nb\nc\n\n'), '\na\nb\nc\n\n'.split(''));
+		t.end();
+	});
+
+	test('works with surrogate pairs', function (t) {
+		t.deepEqual(arrayFrom('foo\uD834\uDF06bar'), ['f', 'o', 'o', '\uD834\uDF06', 'b', 'a', 'r']);
+		t.deepEqual(arrayFrom('foo\uD834bar'), ['f', 'o', 'o', '\uD834', 'b', 'a', 'r']);
+		t.deepEqual(arrayFrom('foo\uDF06bar'), ['f', 'o', 'o', '\uDF06', 'b', 'a', 'r']);
 		t.end();
 	});
 
@@ -88,6 +96,32 @@ var runTests = function runTests(arrayFrom) {
 	test('works with arraylike objects', function (t) {
 		t.deepEqual(arrayFrom({ 'length': 1 }), [void 0]);
 		t.deepEqual(arrayFrom({ '0': 'a', '1': 'b', 'length': 2 }), ['a', 'b']);
+		t.end();
+	});
+
+	test('works with iterable objects', function (t) {
+		var define = function (obj, key, value) {
+			obj[key] = value;
+			return obj;
+		};
+		var iterator = typeof Symbol === 'function' ? Symbol.iterator : '@@iterator';
+		var makeIterator = function (array) {
+			return define({}, iterator, function () {
+				var index = -1;
+				return {
+					'next': function () {
+						index += 1;
+						return {
+							'value': array[index],
+							'done': index >= array.length
+						};
+					}
+				};
+			});
+		};
+		t.deepEqual(arrayFrom(makeIterator([])), []);
+		t.deepEqual(arrayFrom(makeIterator([1, 2, 3])), [1, 2, 3]);
+		t.deepEqual(arrayFrom(makeIterator([4, 5, 6])), [4, 5, 6]);
 		t.end();
 	});
 
