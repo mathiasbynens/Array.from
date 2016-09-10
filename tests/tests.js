@@ -79,9 +79,9 @@ var runTests = function runTests(arrayFrom) {
 
 	test('it includes Object.prototype values when it is polluted', function (t) {
 		/* eslint-disable no-extend-native */
-		Object.prototype[1] = 42;
-		t.deepEqual(arrayFrom({ 'length': 3, '0': 1, '2': 3 }), [1, 42, 3]);
-		delete Object.prototype[1];
+		Object.prototype[4] = 42;
+		t.deepEqual(arrayFrom({ 'length': 5, '0': 1, '1': 2, '2': 3, '3': 4 }), [1, 2, 3, 4, 42]);
+		delete Object.prototype[4];
 		t.end();
 	});
 
