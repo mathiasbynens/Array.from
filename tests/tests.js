@@ -92,7 +92,9 @@ var runTests = function runTests(arrayFrom) {
 	});
 
 	test('throws with an invalid mapping function', function (t) {
-		t.throws(function () { arrayFrom([], undefined); }, TypeError);
+		t.doesNotThrow(function () { arrayFrom([], undefined); });
+		t.doesNotThrow(function () { arrayFrom([], undefined, undefined); });
+		t.doesNotThrow(function () { arrayFrom([], undefined, {}); });
 		t.throws(function () { arrayFrom([], null); }, TypeError);
 		t.throws(function () { arrayFrom([], false); }, TypeError);
 		t.throws(function () { arrayFrom([], true); }, TypeError);
