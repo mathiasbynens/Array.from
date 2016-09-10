@@ -36,9 +36,9 @@ module.exports = function from(arrayLike) {
 			mappedValue = kValue;
 		}
 		defineProperty(A, k, {
-			'value': mappedValue,
 			'configurable': true,
 			'enumerable': true,
+			'value': mappedValue,
 			'writable': true
 		});
 		k += 1;

@@ -13,8 +13,8 @@ var boundFromShim = function from(array) {
 };
 
 define(boundFromShim, {
-	'implementation': implementation,
 	'getPolyfill': getPolyfill,
+	'implementation': implementation,
 	'shim': shim
 });
 

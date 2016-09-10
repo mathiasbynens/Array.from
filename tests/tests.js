@@ -80,7 +80,7 @@ var runTests = function runTests(arrayFrom) {
 	test('it includes Object.prototype values when it is polluted', function (t) {
 		/* eslint-disable no-extend-native */
 		Object.prototype[4] = 42;
-		t.deepEqual(arrayFrom({ 'length': 5, '0': 1, '1': 2, '2': 3, '3': 4 }), [1, 2, 3, 4, 42]);
+		t.deepEqual(arrayFrom({ '0': 1, '1': 2, '2': 3, '3': 4, 'length': 5 }), [1, 2, 3, 4, 42]);
 		delete Object.prototype[4];
 		t.end();
 	});
@@ -144,8 +144,8 @@ var runTests = function runTests(arrayFrom) {
 	test('works when called from a non-constructor context', function (t) {
 		var from = arrayFrom;
 		/* eslint-disable no-useless-call */
-		t.deepEqual(from.call(null, { 'length': 1, '0': 'a' }), ['a']);
-		t.deepEqual(arrayFrom({ 'length': 1, '0': 'a' }), ['a']);
+		t.deepEqual(from.call(null, { '0': 'a', 'length': 1 }), ['a']);
+		t.deepEqual(arrayFrom({ '0': 'a', 'length': 1 }), ['a']);
 		t.end();
 	});
 
@@ -160,8 +160,8 @@ var runTests = function runTests(arrayFrom) {
 
 		var actual = arrayFrom.call(MyType, { '0': 'abc', 'length': 1 });
 		var expected = new MyType();
-		Object.defineProperty(expected, 0, { 'value': 'abc', 'enumerable': true, 'configurable': true, 'writable': true });
-		Object.defineProperty(expected, 'length', { 'value': 1, 'enumerable': true, 'configurable': true, 'writable': true });
+		Object.defineProperty(expected, 0, { 'configurable': true, 'enumerable': true, 'value': 'abc', 'writable': true });
+		Object.defineProperty(expected, 'length', { 'configurable': true, 'enumerable': true, 'value': 1, 'writable': true });
 		t.deepEqual(actual, expected);
 		t.ok(actual instanceof MyType);
 		t.end();
