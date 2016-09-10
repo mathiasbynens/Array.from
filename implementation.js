@@ -14,7 +14,7 @@ module.exports = function from(arrayLike) {
 	var items = ES.ToObject(arrayLike);
 
 	var mapFn, T;
-	if (arguments.length > 1) {
+	if (typeof arguments[1] !== 'undefined') {
 		mapFn = arguments[1];
 		if (!ES.IsCallable(mapFn)) {
 			throw new TypeError('When provided, the second argument to `Array.from` must be a function');
