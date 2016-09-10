@@ -43,7 +43,8 @@
 	},
 	"scripts": {
 		"prepublish": "safe-publish-latest",
-		"test": "npm run lint && es-shim-api --bound && npm run tests-only",
+		"pretest": "npm run lint",
+		"test": "es-shim-api --bound && npm run tests-only",
 		"tests-only": "node tests/*.js",
 		"coverage": "covert tests/*.js",
 		"lint": "eslint *.js tests/*.js"
