@@ -79,9 +79,9 @@ var runTests = function runTests(arrayFrom) {
 
 	test('it includes Object.prototype values when it is polluted', function (t) {
 		/* eslint-disable no-extend-native */
-		Object.prototype[1] = 42;
-		t.deepEqual(arrayFrom({ 'length': 3, '0': 1, '2': 3 }), [1, 42, 3]);
-		delete Object.prototype[1];
+		Object.prototype[4] = 42;
+		t.deepEqual(arrayFrom({ 'length': 5, '0': 1, '1': 2, '2': 3, '3': 4 }), [1, 2, 3, 4, 42]);
+		delete Object.prototype[4];
 		t.end();
 	});
 
@@ -92,7 +92,9 @@ var runTests = function runTests(arrayFrom) {
 	});
 
 	test('throws with an invalid mapping function', function (t) {
-		t.throws(function () { arrayFrom([], undefined); }, TypeError);
+		t.doesNotThrow(function () { arrayFrom([], undefined); });
+		t.doesNotThrow(function () { arrayFrom([], undefined, undefined); });
+		t.doesNotThrow(function () { arrayFrom([], undefined, {}); });
 		t.throws(function () { arrayFrom([], null); }, TypeError);
 		t.throws(function () { arrayFrom([], false); }, TypeError);
 		t.throws(function () { arrayFrom([], true); }, TypeError);
