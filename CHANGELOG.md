@@ -1,3 +1,11 @@
+1.0.3 / 2016-09-10
+=================
+  * [Fix] present + `undefined` mapping argument is ignored; fix tests (#32)
+  * [Deps] update `es-abstract`
+  * [Dev Deps] update `eslint`, `@ljharb/eslint-config`
+  * [Tests] use “pretest” for linting
+  * add `safe-publish-latest`
+
 1.0.2 / 2016-06-23
 =================
   * [Fix] bound shim at entry point was double-wrapping arguments (#26)
