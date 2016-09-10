@@ -44,7 +44,7 @@
 	"scripts": {
 		"test": "npm run lint && es-shim-api --bound && npm run tests-only",
 		"tests-only": "node tests/*.js",
-		"cover": "covert tests/*.js",
+		"coverage": "covert tests/*.js",
 		"lint": "eslint *.js tests/*.js"
 	},
 	"devDependencies": {
