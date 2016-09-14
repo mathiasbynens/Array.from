@@ -1,6 +1,128 @@
 'use strict';
 var ES = require('es-abstract/es6');
 var supportsDescriptors = require('define-properties').supportsDescriptors;
+var has = require('has');
+var global = require('system.global')();
+
+var parseIterable = function (iterator) {
+	var done = false;
+	var iterableResponse;
+	var tempArray = [];
+
+	if (iterator && typeof iterator.next === 'function') {
+		while (!done) {
+			iterableResponse = iterator.next();
+			if (
+				has(iterableResponse, 'value')
+        && has(iterableResponse, 'done')
+			) {
+				if (iterableResponse.done === true) {
+					done = true;
+					break; // eslint-disable-line no-restricted-syntax
+
+				} else if (iterableResponse.done !== false) {
+					break; // eslint-disable-line no-restricted-syntax
+				}
+
+				tempArray.push(iterableResponse.value);
+			} else if (iterableResponse.done === true) {
+				done = true;
+				break; // eslint-disable-line no-restricted-syntax
+			} else {
+				break; // eslint-disable-line no-restricted-syntax
+			}
+		}
+	}
+
+	return done ? tempArray : false;
+};
+
+var hasSymbols = typeof Symbol === 'function' && typeof Symbol.iterator === 'symbol';
+var iteratorSymbol;
+var forOfOnly;
+if (hasSymbols) {
+	iteratorSymbol = Symbol.iterator;
+} else {
+	var supportsStrIterator = (function () {
+		try {
+			var supported = false;
+			var obj = { // eslint-disable-line no-unused-vars
+				'@@iterator': function () {
+					return {
+						'next': function () {
+							supported = true;
+							return {
+								'done': true,
+								'value': undefined
+							};
+						}
+					};
+				}
+			};
+
+			Function('obj', // eslint-disable-line no-new-func
+				'for (var x of obj) {}'
+			)(obj);
+			return supported;
+		} catch (e) {
+			return false;
+		}
+	}());
+
+	if (supportsStrIterator) {
+		iteratorSymbol = '@@iterator';
+	} else if ('Set' in global && 'Map' in global) {
+		var map = new Map();
+		map.set(1, 2);
+		var y;
+		Function('map', 'y', 'for (var x of map) {y = x}')(map, y); // eslint-disable-line no-new-func
+		if (y[0] === 1 && y[1] === 2) {
+			forOfOnly = true;
+		}
+	}
+}
+
+var isCallable = require('is-callable');
+
+var isSet;
+if ('Set' in global) {
+	var setSize = Object.getOwnPropertyDescriptor(Set.prototype, 'size').get;
+	isSet = function (set) {
+		try {
+			setSize.call(set);
+			return true;
+		} catch (e) {
+			return false;
+		}
+	};
+}
+
+var isMap;
+if ('Map' in global) {
+	var mapSize = Object.getOwnPropertyDescriptor(Map.prototype, 'size').get;
+	isMap = function (m) {
+		try {
+			mapSize.call(m);
+			return true;
+		} catch (e) {
+			return false;
+		}
+	};
+}
+
+var usingIterator = function (items) {
+	if (has(items, iteratorSymbol)) {
+		return items[iteratorSymbol]();
+	} else if ('Set' in global && 'Map' in global && isCallable(items.entries) && isCallable(items.values)) {
+		if (isSet(items)) {
+			return items.values();
+		}
+		if (isMap(items)) {
+			return items.entries();
+		}
+	}
+	return items;
+};
 
 /*! https://mths.be/array-from v0.2.0 by @mathias */
 module.exports = function from(arrayLike) {
@@ -28,6 +150,22 @@ module.exports = function from(arrayLike) {
 	var A = ES.IsCallable(C) ? ES.ToObject(new C(len)) : new Array(len);
 	var k = 0;
 	var kValue, mappedValue;
+
+	// variables for rebuilding array from iterator
+	var arrayFromIterable = parseIterable(usingIterator(arrayLike));
+
+	if (arrayFromIterable) {
+		items = arrayFromIterable;
+		len = arrayFromIterable.length;
+	} else if (forOfOnly) {
+		try {
+			// Safari 8's native Map or Set can't be iterated except with for..of
+			return Function('items', 'arrayLike', 'var arr = []; for (var entry of arrayLike) { arr.push(entry); } return arr')(); // eslint-disable-line no-new-func
+		} catch (e) {
+			/* for..of seems to not be supported, fallback to basic iteration */
+		}
+	}
+
 	while (k < len) {
 		kValue = items[k];
 		if (mapFn) {

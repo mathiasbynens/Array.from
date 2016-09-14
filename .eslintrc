@@ -4,10 +4,10 @@
 	"extends": "@ljharb",
 
 	"rules": {
-		"complexity": [2, 11],
+		"complexity": [2, 14],
 		"max-nested-callbacks": [2, 3],
 		"max-params": [2, 3],
-		"max-statements": [2, 25],
+		"max-statements": [2, 31],
 		"new-cap": [2, { "capIsNewExceptions": ["Call", "IsCallable", "ToLength", "ToObject"] }],
 		"no-magic-numbers": 0,
 		"operator-linebreak": [2, "before"],
