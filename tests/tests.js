@@ -4,6 +4,7 @@
 
 var test = require('tape');
 var ES = require('es-abstract/es6');
+var supportsDescriptors = require('define-properties').supportsDescriptors;
 
 var runTests = function runTests(arrayFrom) {
 	test('from has proper length', function (t) {
@@ -149,7 +150,23 @@ var runTests = function runTests(arrayFrom) {
 		t.end();
 	});
 
-	test('no setters are called for indexes', { 'skip': !Object.defineProperty }, function (t) {
+	var numericPropertySetterBug = supportsDescriptors && (function () {
+		// This is a bug in webkit which affects Safari < 10
+		// https://bugs.webkit.org/show_bug.cgi?id=151812
+		try {
+			var obj = {};
+			Object.defineProperty(obj, '0', {
+				'get': function () {},
+				'set': function () { throw new Error(); }
+			});
+			obj[0] = 1;
+			return false;
+		} catch (e) {
+			return true;
+		}
+	}());
+
+	test('no setters are called for indexes', { 'skip': !supportsDescriptors && numericPropertySetterBug }, function (t) {
 		var MyType = function () {};
 		Object.defineProperty(MyType.prototype, '0', {
 			'get': function () {},

@@ -12,6 +12,7 @@
 		"no-magic-numbers": 0,
 		"operator-linebreak": [2, "before"],
 		"quote-props": [2, "always", { "keywords": true }],
-		"spaced-comment": [0]
+		"spaced-comment": [0],
+		"id-length": [2, { "max": 25, "min": 1 }]
 	}
 }
