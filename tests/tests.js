@@ -6,6 +6,28 @@ var test = require('tape');
 var ES = require('es-abstract/es6');
 var supportsDescriptors = require('define-properties').supportsDescriptors;
 
+var makeIterator = function (array) {
+	var nextIndex = 0;
+	var value;
+	return {
+		'next': function () {
+			if (nextIndex < array.length) {
+				value = array[nextIndex];
+				nextIndex = nextIndex + 1;
+				return {
+					'done': false,
+					'value': value
+				};
+			} else {
+				return {
+					'done': true,
+					'value': undefined
+				};
+			}
+		}
+	};
+};
+
 var runTests = function runTests(arrayFrom) {
 	test('from has proper length', function (t) {
 		t.equal(arrayFrom.length, 1);
@@ -189,6 +211,44 @@ var runTests = function runTests(arrayFrom) {
 		t.end();
 	});
 
+	test('works with iterable objects', function (t) {
+		(function () {
+			t.deepEqual(arrayFrom(arguments), [1, 2, 3]);
+		}(1, 2, 3));
+
+		test('works with Array.prototype.values', { 'skip': !Array.prototype.values }, function (te) {
+			te.deepEqual(arrayFrom([1, 2, 3].values()), [1, 2, 3]);
+			te.end();
+		});
+
+		test('works with Map objects', { 'skip': !('Map' in global && 'values' in Map.prototype) }, function (te) {
+			var map = new Map();
+			map.set(1, 2);
+			map.set(3, 4);
+			var mapIterator = map.values();
+			te.deepEqual(arrayFrom(mapIterator), [2, 4]);
+			te.deepEqual(arrayFrom(map), [[1, 2], [3, 4]]);
+			te.end();
+		});
+
+		test('works with Set objects', { 'skip': !('Set' in global && 'values' in Set.prototype) }, function (te) {
+			var set = new Set();
+			set.add(1);
+			set.add(2);
+			set.add(3);
+			var setIterator = set.values();
+			te.deepEqual(arrayFrom(setIterator), [1, 2, 3]);
+			te.deepEqual(arrayFrom(set), [1, 2, 3]);
+			te.end();
+		});
+
+		var codePoints = ['a', '\uD834\uDF06', 'b'];
+		t.deepEqual(arrayFrom(makeIterator(codePoints)), codePoints);
+		t.deepEqual(arrayFrom.call(null, makeIterator(codePoints)), codePoints);
+		t.deepEqual(arrayFrom.apply(null, [makeIterator(codePoints)]), codePoints);
+		t.end();
+	});
+
 	// These tests take way too long to execute, sadly:
 	/*
 	test('works with very large lengths', function (t) {
@@ -197,10 +257,10 @@ var runTests = function runTests(arrayFrom) {
 			this.length = length;
 			return this;
 		};
-		t.equals(from.call(Constructor, { 'length': 0xFFFFFFFF }).length, 0xFFFFFFFF);
-		t.equals(from.call(Constructor, { 'length': 0xFFFFFFFF + 1 }).length, 0xFFFFFFFF + 1 );
-		t.equals(from.call(Constructor, { 'length': 0x1FFFFFFFFFFFFF }).length, 0x1FFFFFFFFFFFFF);
-		t.equals(from.call(Constructor, { 'length': 0x1FFFFFFFFFFFFF + 1 }).length, 0x1FFFFFFFFFFFFF);
+		t.equals(arrayFrom.call(Constructor, { 'length': 0xFFFFFFFF }).length, 0xFFFFFFFF);
+		t.equals(arrayFrom.call(Constructor, { 'length': 0xFFFFFFFF + 1 }).length, 0xFFFFFFFF + 1 );
+		t.equals(arrayFrom.call(Constructor, { 'length': 0x1FFFFFFFFFFFFF }).length, 0x1FFFFFFFFFFFFF);
+		t.equals(arrayFrom.call(Constructor, { 'length': 0x1FFFFFFFFFFFFF + 1 }).length, 0x1FFFFFFFFFFFFF);
 		t.end();
 	});
 	*/
