@@ -3,6 +3,7 @@ var ES = require('es-abstract/es6');
 var supportsDescriptors = require('define-properties').supportsDescriptors;
 var has = require('has');
 var global = require('system.global')();
+var isString = require('is-string');
 
 var parseIterable = function (iterator) {
 	var done = false;
@@ -124,6 +125,8 @@ var usingIterator = function (items) {
 	return items;
 };
 
+var strMatch = String.prototype.match;
+
 /*! https://mths.be/array-from v0.2.0 by @mathias */
 module.exports = function from(arrayLike) {
 	var defineProperty = supportsDescriptors ? Object.defineProperty : function put(object, key, descriptor) {
@@ -157,6 +160,8 @@ module.exports = function from(arrayLike) {
 	if (arrayFromIterable) {
 		items = arrayFromIterable;
 		len = arrayFromIterable.length;
+	} else if (isString(items)) {
+		return strMatch.call(items, /[\uD800-\uDBFF][\uDC00-\uDFFF]?|[^\uD800-\uDFFF]|./g) || [];
 	} else if (forOfOnly) {
 		try {
 			// Safari 8's native Map or Set can't be iterated except with for..of
