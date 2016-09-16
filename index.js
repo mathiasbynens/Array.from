@@ -8,7 +8,7 @@ var shim = require('./shim');
 
 // eslint-disable-next-line no-unused-vars
 var boundFromShim = function from(array) {
-    // eslint-disable-next-line no-invalid-this
+	// eslint-disable-next-line no-invalid-this
 	return implementation.apply(this || Array, arguments);
 };
 

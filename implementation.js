@@ -15,7 +15,7 @@ var parseIterable = function (iterator) {
 			iterableResponse = iterator.next();
 			if (
 				has(iterableResponse, 'value')
-        && has(iterableResponse, 'done')
+				&& has(iterableResponse, 'done')
 			) {
 				if (iterableResponse.done === true) {
 					done = true;
