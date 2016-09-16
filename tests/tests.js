@@ -152,12 +152,24 @@ var runTests = function runTests(arrayFrom) {
 
 	test('works with a mapping function', function (t) {
 		var original = [1, 2, 3];
-		var actual = arrayFrom(original, function (value, index) {
-			t.equal(value, original[index], 'value and index are correct');
-			t.equal(arguments.length, 2, 'value and index are only arguments passed to the mapping function');
-			return value * 2;
+
+		t.test('with arrays', function (te) {
+			var actual = arrayFrom(original, function (value, index) {
+				t.equal(value, original[index], 'value and index are correct');
+				t.equal(arguments.length, 2, 'value and index are only arguments passed to the mapping function');
+				return value * 2;
+			});
+			t.deepEqual(actual, [2, 4, 6]);
+			te.end();
 		});
-		t.deepEqual(actual, [2, 4, 6]);
+
+		t.test('with strings', function (te) {
+			var actual = arrayFrom('abc', function (c) {
+				return c.toUpperCase();
+			});
+			t.deepEqual(actual, ['A', 'B', 'C']);
+			te.end();
+		});
 
 		t.test('accepts an object thisArg', function (st) {
 			var context = {};

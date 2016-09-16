@@ -162,7 +162,8 @@ module.exports = function from(arrayLike) {
 		items = arrayFromIterable;
 		len = arrayFromIterable.length;
 	} else if (isString(items)) {
-		return strMatch.call(items, /[\uD800-\uDBFF][\uDC00-\uDFFF]?|[^\uD800-\uDFFF]|./g) || [];
+		items = strMatch.call(items, /[\uD800-\uDBFF][\uDC00-\uDFFF]?|[^\uD800-\uDFFF]|./g) || [];
+		len = items.length;
 	} else if (forOfOnly) {
 		try {
 			// Safari 8's native Map or Set can't be iterated except with for..of

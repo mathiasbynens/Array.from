@@ -7,7 +7,7 @@
 		"complexity": [2, 16],
 		"max-nested-callbacks": [2, 3],
 		"max-params": [2, 3],
-		"max-statements": [2, 32],
+		"max-statements": [2, 33],
 		"new-cap": [2, { "capIsNewExceptions": ["Call", "IsCallable", "ToLength", "ToObject"] }],
 		"no-magic-numbers": 0,
 		"operator-linebreak": [2, "before"],
