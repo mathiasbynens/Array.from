@@ -72,9 +72,31 @@ var runTests = function runTests(arrayFrom) {
 		t.end();
 	});
 
-	test('works with strings', function (t) {
+	test('works with primitive strings', function (t) {
 		t.deepEqual(arrayFrom(''), []);
 		t.deepEqual(arrayFrom('abc'), 'abc'.split(''));
+		t.deepEqual(arrayFrom('a\nb\nc\n\n'), 'a\nb\nc\n\n'.split(''));
+		t.deepEqual(arrayFrom('foo\uD834\uDF06bar'), ['f', 'o', 'o', '\uD834\uDF06', 'b', 'a', 'r']);
+		t.deepEqual(arrayFrom('foo\uD834bar'), ['f', 'o', 'o', '\uD834', 'b', 'a', 'r']);
+		t.deepEqual(arrayFrom('foo\uDF06bar'), ['f', 'o', 'o', '\uDF06', 'b', 'a', 'r']);
+		t.end();
+	});
+
+	test('works with object strings', function (t) {
+		t.deepEqual(arrayFrom(Object('')), []);
+		t.deepEqual(arrayFrom(Object('abc')), 'abc'.split(''));
+		t.deepEqual(arrayFrom(Object('a\nb\nc\n\n')), 'a\nb\nc\n\n'.split(''));
+		t.deepEqual(arrayFrom(Object('foo\uD834\uDF06bar')), ['f', 'o', 'o', '\uD834\uDF06', 'b', 'a', 'r']);
+		t.deepEqual(arrayFrom(Object('foo\uD834bar')), ['f', 'o', 'o', '\uD834', 'b', 'a', 'r']);
+		t.deepEqual(arrayFrom(Object('foo\uDF06bar')), ['f', 'o', 'o', '\uDF06', 'b', 'a', 'r']);
+		t.end();
+	});
+
+	test('ensure to use iterators with strings', { 'skip': typeof Symbol !== 'function' }, function (t) {
+		var a = Object('a');
+		var b = Object('b');
+		a[Symbol.iterator] = function () { return b[Symbol.iterator](); };
+		t.deepEqual(arrayFrom(a), ['b']);
 		t.end();
 	});
 
