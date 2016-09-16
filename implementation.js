@@ -41,7 +41,7 @@ var parseIterable = function (iterator) {
 
 var hasSymbols = typeof Symbol === 'function' && typeof Symbol.iterator === 'symbol';
 var iteratorSymbol;
-var forOfOnly;
+var forOf;
 var hasSet = !!global.Set && isCallable(Set.prototype.values);
 var hasMap = !!global.Map && isCallable(Map.prototype.entries);
 
@@ -76,13 +76,12 @@ if (hasSymbols) {
 
 	if (supportsStrIterator) {
 		iteratorSymbol = '@@iterator';
-	} else if (hasMap) {
-		var map = new Map();
-		map.set(1, 2);
-		var y;
-		Function('map', 'y', 'for (var x of map) {y = x}')(map, y); // eslint-disable-line no-new-func
-		if (y[0] === 1 && y[1] === 2) {
-			forOfOnly = true;
+	} else {
+		try {
+			if (Function('for (var x of [0]) x;')() === 0) { // eslint-disable-line no-new-func
+				forOf = Function('iterable', 'var arr = []; for (var value of iterable) arr.push(value); return arr;'); // eslint-disable-line no-new-func
+			}
+		} catch (e) {
 		}
 	}
 }
@@ -164,13 +163,10 @@ module.exports = function from(arrayLike) {
 	} else if (isString(items)) {
 		items = strMatch.call(items, /[\uD800-\uDBFF][\uDC00-\uDFFF]?|[^\uD800-\uDFFF]|./g) || [];
 		len = items.length;
-	} else if (forOfOnly) {
-		try {
-			// Safari 8's native Map or Set can't be iterated except with for..of
-			return Function('items', 'arrayLike', 'var arr = []; for (var entry of arrayLike) { arr.push(entry); } return arr')(); // eslint-disable-line no-new-func
-		} catch (e) {
-			/* for..of seems to not be supported, fallback to basic iteration */
-		}
+	} else if (forOf) {
+		// Safari 8's native Map or Set can't be iterated except with for..of
+		items = forOf(items);
+		len = items.length;
 	}
 
 	while (k < len) {
