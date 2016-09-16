@@ -4,6 +4,7 @@ var supportsDescriptors = require('define-properties').supportsDescriptors;
 var has = require('has');
 var global = require('system.global')();
 var isString = require('is-string');
+var isCallable = require('is-callable');
 
 var parseIterable = function (iterator) {
 	var done = false;
@@ -41,6 +42,9 @@ var parseIterable = function (iterator) {
 var hasSymbols = typeof Symbol === 'function' && typeof Symbol.iterator === 'symbol';
 var iteratorSymbol;
 var forOfOnly;
+var hasSet = !!global.Set && isCallable(Set.prototype.values);
+var hasMap = !!global.Map && isCallable(Map.prototype.entries);
+
 if (hasSymbols) {
 	iteratorSymbol = Symbol.iterator;
 } else {
@@ -72,7 +76,7 @@ if (hasSymbols) {
 
 	if (supportsStrIterator) {
 		iteratorSymbol = '@@iterator';
-	} else if ('Set' in global && 'Map' in global) {
+	} else if (hasMap) {
 		var map = new Map();
 		map.set(1, 2);
 		var y;
@@ -83,10 +87,8 @@ if (hasSymbols) {
 	}
 }
 
-var isCallable = require('is-callable');
-
 var isSet;
-if ('Set' in global) {
+if (hasSet) {
 	var setSize = Object.getOwnPropertyDescriptor(Set.prototype, 'size').get;
 	isSet = function (set) {
 		try {
@@ -99,7 +101,7 @@ if ('Set' in global) {
 }
 
 var isMap;
-if ('Map' in global) {
+if (hasMap) {
 	var mapSize = Object.getOwnPropertyDescriptor(Map.prototype, 'size').get;
 	isMap = function (m) {
 		try {
@@ -111,16 +113,15 @@ if ('Map' in global) {
 	};
 }
 
+var setValues = hasSet && Set.prototype.values;
+var mapEntries = hasMap && Map.prototype.entries;
 var usingIterator = function (items) {
 	if (has(items, iteratorSymbol)) {
 		return items[iteratorSymbol]();
-	} else if ('Set' in global && 'Map' in global && isCallable(items.entries) && isCallable(items.values)) {
-		if (isSet(items)) {
-			return items.values();
-		}
-		if (isMap(items)) {
-			return items.entries();
-		}
+	} else if (hasSet && isSet(items)) {
+		return setValues.call(items);
+	} else if (hasMap && isMap(items)) {
+		return mapEntries.call(items);
 	}
 	return items;
 };
