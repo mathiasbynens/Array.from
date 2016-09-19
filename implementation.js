@@ -127,17 +127,29 @@ var usingIterator = function (items) {
 
 var strMatch = String.prototype.match;
 
+var parseIterableLike = function (items) {
+	var arr = parseIterable(usingIterator(items));
+
+	if (!arr) {
+		if (forOf) {
+			// Safari 8's native Map or Set can't be iterated except with for..of
+			arr = forOf(items);
+		} else if (isString(items)) {
+			arr = strMatch.call(items, /[\uD800-\uDBFF][\uDC00-\uDFFF]?|[^\uD800-\uDFFF]|./g) || [];
+		}
+	}
+	return arr || items;
+};
+
 /*! https://mths.be/array-from v0.2.0 by @mathias */
-module.exports = function from(arrayLike) {
+module.exports = function from(items) {
 	var defineProperty = supportsDescriptors ? Object.defineProperty : function put(object, key, descriptor) {
 		object[key] = descriptor.value;
 	};
 	var C = this;
-	if (arrayLike === null || typeof arrayLike === 'undefined') {
+	if (items === null || typeof items === 'undefined') {
 		throw new TypeError('`Array.from` requires an array-like object, not `null` or `undefined`');
 	}
-	var items = ES.ToObject(arrayLike);
-
 	var mapFn, T;
 	if (typeof arguments[1] !== 'undefined') {
 		mapFn = arguments[1];
@@ -149,28 +161,14 @@ module.exports = function from(arrayLike) {
 		}
 	}
 
-	var len = ES.ToLength(items.length);
+	var arrayLike = ES.ToObject(parseIterableLike(items));
+	var len = ES.ToLength(arrayLike.length);
 	var A = ES.IsCallable(C) ? ES.ToObject(new C(len)) : new Array(len);
 	var k = 0;
 	var kValue, mappedValue;
 
-	// variables for rebuilding array from iterator
-	var arrayFromIterable = parseIterable(usingIterator(arrayLike));
-
-	if (arrayFromIterable) {
-		items = arrayFromIterable;
-		len = arrayFromIterable.length;
-	} else if (isString(items)) {
-		items = strMatch.call(items, /[\uD800-\uDBFF][\uDC00-\uDFFF]?|[^\uD800-\uDFFF]|./g) || [];
-		len = items.length;
-	} else if (forOf) {
-		// Safari 8's native Map or Set can't be iterated except with for..of
-		items = forOf(items);
-		len = items.length;
-	}
-
 	while (k < len) {
-		kValue = items[k];
+		kValue = arrayLike[k];
 		if (mapFn) {
 			mappedValue = typeof T === 'undefined' ? mapFn(kValue, k) : ES.Call(mapFn, T, [kValue, k]);
 		} else {
