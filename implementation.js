@@ -78,7 +78,7 @@ if (hasSymbols) {
 		iteratorSymbol = '@@iterator';
 	} else {
 		try {
-			if (Function('for (var x of [0]) x;')() === 0) { // eslint-disable-line no-new-func
+			if (Function('var s = new Set(); s.add(0); for (var x of s) return x;')() === 0) { // eslint-disable-line no-new-func
 				forOf = Function('iterable', 'var arr = []; for (var value of iterable) arr.push(value); return arr;'); // eslint-disable-line no-new-func
 			}
 		} catch (e) {
