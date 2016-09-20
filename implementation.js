@@ -48,6 +48,7 @@ var hasMap = !!global.Map && isCallable(Map.prototype.entries);
 if (hasSymbols) {
 	iteratorSymbol = Symbol.iterator;
 } else {
+	var iterate = Function('iterable', 'var arr = []; for (var value of iterable) arr.push(value); return arr;'); // eslint-disable-line no-new-func
 	var supportsStrIterator = (function () {
 		try {
 			var supported = false;
@@ -65,9 +66,7 @@ if (hasSymbols) {
 				}
 			};
 
-			Function('obj', // eslint-disable-line no-new-func
-				'for (var x of obj) {}'
-			)(obj);
+			iterate(obj);
 			return supported;
 		} catch (e) {
 			return false;
@@ -77,9 +76,11 @@ if (hasSymbols) {
 	if (supportsStrIterator) {
 		iteratorSymbol = '@@iterator';
 	} else {
+		var s = new Set();
+		s.add(0);
 		try {
-			if (Function('var s = new Set(); s.add(0); for (var x of s) return x;')() === 0) { // eslint-disable-line no-new-func
-				forOf = Function('iterable', 'var arr = []; for (var value of iterable) arr.push(value); return arr;'); // eslint-disable-line no-new-func
+			if (iterate(s).length === 1) {
+				forOf = iterate;
 			}
 		} catch (e) {
 		}
