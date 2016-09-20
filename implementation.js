@@ -5,6 +5,7 @@ var has = require('has');
 var global = require('system.global')();
 var isString = require('is-string');
 var isCallable = require('is-callable');
+var isArray = require('isarray');
 
 var parseIterable = function (iterator) {
 	var done = false;
@@ -132,11 +133,13 @@ var parseIterableLike = function (items) {
 	var arr = parseIterable(usingIterator(items));
 
 	if (!arr) {
-		if (forOf) {
-			// Safari 8's native Map or Set can't be iterated except with for..of
-			arr = forOf(items);
-		} else if (isString(items)) {
+		if (isString(items)) {
 			arr = strMatch.call(items, /[\uD800-\uDBFF][\uDC00-\uDFFF]?|[^\uD800-\uDFFF]|./g) || [];
+		} else if (forOf && !isArray(items)) {
+			// Safari 8's native Map or Set can't be iterated except with for..of
+			try {
+				arr = forOf(items);
+			} catch (e) {}
 		}
 	}
 	return arr || items;
