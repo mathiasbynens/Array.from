@@ -62,6 +62,7 @@
 		"es-abstract": "^1.6.1",
 		"has": "^1.0.1",
 		"is-string": "^1.0.4",
-		"system.global": "^1.0.0"
+		"system.global": "^1.0.0",
+		"has-symbols": "^1.0.0"
 	}
 }

@@ -39,7 +39,7 @@ var parseIterable = function (iterator) {
 	return done ? tempArray : false;
 };
 
-var hasSymbols = typeof Symbol === 'function' && typeof Symbol.iterator === 'symbol';
+var hasSymbols = require('has-symbols')();
 var iteratorSymbol;
 var forOf;
 var hasSet = !!global.Set && isCallable(Set.prototype.values);

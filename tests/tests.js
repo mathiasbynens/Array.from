@@ -5,6 +5,7 @@
 var test = require('tape');
 var ES = require('es-abstract/es6');
 var supportsDescriptors = require('define-properties').supportsDescriptors;
+var hasSymbols = require('has-symbols')();
 
 var makeIterator = function (array) {
 	var nextIndex = 0;
@@ -92,7 +93,7 @@ var runTests = function runTests(arrayFrom) {
 		t.end();
 	});
 
-	test('ensure to use iterators with strings', { 'skip': typeof Symbol !== 'function' }, function (t) {
+	test('ensure to use iterators with strings', { 'skip': !hasSymbols }, function (t) {
 		var a = Object('a');
 		var b = Object('b');
 		a[Symbol.iterator] = function () { return b[Symbol.iterator](); };
