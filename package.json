@@ -64,5 +64,23 @@
 		"is-string": "^1.0.4",
 		"system.global": "^1.0.0",
 		"has-symbols": "^1.0.0"
+	},
+	"testling": {
+		"files": "tests/tests.js",
+		"browsers": [
+			"iexplore/6.0..latest",
+			"firefox/3.0..6.0",
+			"firefox/15.0..latest",
+			"firefox/nightly",
+			"chrome/4.0..10.0",
+			"chrome/20.0..latest",
+			"chrome/canary",
+			"opera/10.0..latest",
+			"opera/next",
+			"safari/4.0..latest",
+			"ipad/6.0..latest",
+			"iphone/6.0..latest",
+			"android-browser/4.2"
+		]
 	}
 }

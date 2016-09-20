@@ -223,7 +223,7 @@ var runTests = function runTests(arrayFrom) {
 		}
 	}());
 
-	test('no setters are called for indexes', { 'skip': !supportsDescriptors && numericPropertySetterBug }, function (t) {
+	test('no setters are called for indexes', { 'skip': !supportsDescriptors || numericPropertySetterBug }, function (t) {
 		var MyType = function () {};
 		Object.defineProperty(MyType.prototype, '0', {
 			'get': function () {},
