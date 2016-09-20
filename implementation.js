@@ -49,7 +49,10 @@ var hasMap = !!global.Map && isCallable(Map.prototype.entries);
 if (hasSymbols) {
 	iteratorSymbol = Symbol.iterator;
 } else {
-	var iterate = Function('iterable', 'var arr = []; for (var value of iterable) arr.push(value); return arr;'); // eslint-disable-line no-new-func
+	var iterate;
+	try {
+		iterate = Function('iterable', 'var arr = []; for (var value of iterable) arr.push(value); return arr;'); // eslint-disable-line no-new-func
+	} catch (e) {}
 	var supportsStrIterator = (function () {
 		try {
 			var supported = false;
@@ -76,7 +79,7 @@ if (hasSymbols) {
 
 	if (supportsStrIterator) {
 		iteratorSymbol = '@@iterator';
-	} else {
+	} else if (typeof Set === 'function') {
 		var s = new Set();
 		s.add(0);
 		try {
