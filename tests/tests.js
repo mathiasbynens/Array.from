@@ -251,29 +251,50 @@ var runTests = function runTests(arrayFrom) {
 			t.deepEqual(arrayFrom(arguments), [1, 2, 3]);
 		}(1, 2, 3));
 
-		test('works with Array.prototype.values', { 'skip': !Array.prototype.values }, function (te) {
+		t.test('works with Array.prototype.values', { 'skip': !Array.prototype.values }, function (te) {
 			te.deepEqual(arrayFrom([1, 2, 3].values()), [1, 2, 3]);
 			te.end();
 		});
 
-		test('works with Map objects', { 'skip': !('Map' in global && 'values' in Map.prototype) }, function (te) {
+		var hasMap = 'Map' in global;
+		t.test('works with Map objects', { 'skip': !hasMap }, function (te) {
 			var map = new Map();
 			map.set(1, 2);
 			map.set(3, 4);
-			var mapIterator = map.values();
-			te.deepEqual(arrayFrom(mapIterator), [2, 4]);
-			te.deepEqual(arrayFrom(map), [[1, 2], [3, 4]]);
+			te.deepEqual(arrayFrom(map), [[1, 2], [3, 4]], 'works with default iterator');
 			te.end();
 		});
 
-		test('works with Set objects', { 'skip': !('Set' in global && 'values' in Set.prototype) }, function (te) {
+		var hasMapValues = hasMap && 'values' in Map.prototype;
+		t.test('works with Map iterators', { 'skip': !hasMapValues }, function (te) {
+			var map = new Map();
+			map.set(1, 2);
+			map.set(3, 4);
+			te.deepEqual(arrayFrom(map.values()), [2, 4], 'works with values iterator');
+			te.deepEqual(arrayFrom(map.keys()), [1, 3], 'works with keys iterator');
+			te.deepEqual(arrayFrom(map.entries()), [[1, 2], [3, 4]], 'works with entries iterator');
+			te.end();
+		});
+
+		var hasSet = 'Set' in global;
+		t.test('works with Set objects', { 'skip': !hasSet }, function (te) {
 			var set = new Set();
 			set.add(1);
 			set.add(2);
 			set.add(3);
-			var setIterator = set.values();
-			te.deepEqual(arrayFrom(setIterator), [1, 2, 3]);
-			te.deepEqual(arrayFrom(set), [1, 2, 3]);
+			te.deepEqual(arrayFrom(set), [1, 2, 3], 'works with default iterator');
+			te.end();
+		});
+
+		var hasSetValues = hasSet && 'values' in Set.prototype;
+		t.test('works with Set iterators', { 'skip': !hasSetValues }, function (te) {
+			var set = new Set();
+			set.add(1);
+			set.add(2);
+			set.add(3);
+			te.deepEqual(arrayFrom(set.values()), [1, 2, 3], 'works with values iterator');
+			te.deepEqual(arrayFrom(set.keys()), [1, 2, 3], 'works with keys iterator');
+			te.deepEqual(arrayFrom(set.entries()), [[1, 1], [2, 2], [3, 3]], 'works with entries iterator');
 			te.end();
 		});
 
