@@ -122,9 +122,9 @@ var mapEntries = hasMap && Map.prototype.entries;
 var usingIterator = function (items) {
 	if (has(items, iteratorSymbol)) {
 		return items[iteratorSymbol]();
-	} else if (hasSet && isSet(items)) {
+	} else if (setValues && isSet(items)) {
 		return setValues.call(items);
-	} else if (hasMap && isMap(items)) {
+	} else if (mapEntries && isMap(items)) {
 		return mapEntries.call(items);
 	}
 	return items;
