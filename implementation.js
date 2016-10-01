@@ -53,33 +53,7 @@ if (hasSymbols) {
 	try {
 		iterate = Function('iterable', 'var arr = []; for (var value of iterable) arr.push(value); return arr;'); // eslint-disable-line no-new-func
 	} catch (e) {}
-	var supportsStrIterator = (function () {
-		try {
-			var supported = false;
-			var obj = { // eslint-disable-line no-unused-vars
-				'@@iterator': function () {
-					return {
-						'next': function () {
-							supported = true;
-							return {
-								'done': true,
-								'value': undefined
-							};
-						}
-					};
-				}
-			};
-
-			iterate(obj);
-			return supported;
-		} catch (e) {
-			return false;
-		}
-	}());
-
-	if (supportsStrIterator) {
-		iteratorSymbol = '@@iterator';
-	} else if (typeof Set === 'function') {
+	if (typeof Set === 'function') {
 		var s = new Set();
 		s.add(0);
 		try {
