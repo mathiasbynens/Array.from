@@ -238,7 +238,7 @@ var runTests = function run(arrayFrom) {
 			te.end();
 		});
 
-		var hasMap = 'Map' in global;
+		var hasMap = typeof Map === 'function';
 		t.test('works with Map objects', { 'skip': !hasMap }, function (te) {
 			var map = new Map();
 			map.set(1, 2);
@@ -247,7 +247,7 @@ var runTests = function run(arrayFrom) {
 			te.end();
 		});
 
-		var hasMapValues = hasMap && 'values' in Map.prototype;
+		var hasMapValues = hasMap && typeof Map.prototype.values === 'function';
 		t.test('works with Map iterators', { 'skip': !hasMapValues }, function (te) {
 			var map = new Map();
 			map.set(1, 2);
@@ -258,7 +258,7 @@ var runTests = function run(arrayFrom) {
 			te.end();
 		});
 
-		var hasSet = 'Set' in global;
+		var hasSet = typeof Set === 'function';
 		t.test('works with Set objects', { 'skip': !hasSet }, function (te) {
 			var set = new Set();
 			set.add(1);
@@ -268,7 +268,7 @@ var runTests = function run(arrayFrom) {
 			te.end();
 		});
 
-		var hasSetValues = hasSet && 'values' in Set.prototype;
+		var hasSetValues = hasSet && typeof Set.prototype.values === 'function';
 		t.test('works with Set iterators', { 'skip': !hasSetValues }, function (te) {
 			var set = new Set();
 			set.add(1);
