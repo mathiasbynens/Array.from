@@ -61,6 +61,7 @@
 		"define-properties": "^1.1.2",
 		"es-abstract": "^1.6.1",
 		"has": "^1.0.1",
+		"is-callable": "^1.1.3",
 		"is-string": "^1.0.4",
 		"isarray": "^1.0.0",
 		"system.global": "^1.0.0",
