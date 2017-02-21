@@ -2,7 +2,6 @@
 var ES = require('es-abstract/es6');
 var supportsDescriptors = require('define-properties').supportsDescriptors;
 var has = require('has');
-var global = require('system.global')();
 var isString = require('is-string');
 var isCallable = require('is-callable');
 var isArray = require('isarray');
@@ -43,8 +42,8 @@ var parseIterable = function (iterator) {
 var hasSymbols = require('has-symbols')();
 var iteratorSymbol;
 var forOf;
-var hasSet = !!global.Set && isCallable(Set.prototype.values);
-var hasMap = !!global.Map && isCallable(Map.prototype.entries);
+var hasSet = typeof Set === 'function' && isCallable(Set.prototype.values);
+var hasMap = typeof Map === 'function' && isCallable(Map.prototype.entries);
 
 if (hasSymbols) {
 	iteratorSymbol = Symbol.iterator;
