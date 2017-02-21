@@ -1,4 +1,5 @@
 'use strict';
+
 var ES = require('es-abstract/es6');
 var supportsDescriptors = require('define-properties').supportsDescriptors;
 var has = require('has');

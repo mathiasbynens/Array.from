@@ -29,7 +29,7 @@ var makeIterator = function (array) {
 	};
 };
 
-var runTests = function runTests(arrayFrom) {
+var runTests = function run(arrayFrom) {
 	test('from has proper length', function (t) {
 		t.equal(arrayFrom.length, 1);
 		t.end();
