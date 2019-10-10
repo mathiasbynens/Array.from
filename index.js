@@ -6,10 +6,12 @@ var implementation = require('./implementation');
 var getPolyfill = require('./polyfill');
 var shim = require('./shim');
 
+var polyfill = getPolyfill();
+
 // eslint-disable-next-line no-unused-vars
-var boundFromShim = function from(array) {
+var boundFromShim = function from(items) {
 	// eslint-disable-next-line no-invalid-this
-	return implementation.apply(this || Array, arguments);
+	return polyfill.apply(this || Array, arguments);
 };
 
 define(boundFromShim, {
