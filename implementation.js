@@ -4,6 +4,7 @@ var Call = require('es-abstract/2019/Call');
 var CreateDataPropertyOrThrow = require('es-abstract/2019/CreateDataPropertyOrThrow');
 var Get = require('es-abstract/2019/Get');
 var IsCallable = require('es-abstract/2019/IsCallable');
+var IsConstructor = require('es-abstract/2019/IsConstructor');
 var ToObject = require('es-abstract/2019/ToObject');
 var ToLength = require('es-abstract/2019/ToLength');
 var ToString = require('es-abstract/2019/ToString');
@@ -34,7 +35,7 @@ module.exports = function from(items) {
 
 	var arrayLike = ToObject(values);
 	var len = ToLength(arrayLike.length);
-	var A = IsCallable(C) ? ToObject(new C(len)) : new Array(len);
+	var A = IsConstructor(C) ? ToObject(new C(len)) : new Array(len);
 	var k = 0;
 	var kValue, mappedValue;
 
