@@ -138,11 +138,11 @@ var runTests = function run(arrayFrom) {
 
 		t.test('with arrays', function (te) {
 			var actual = arrayFrom(original, function (value, index) {
-				t.equal(value, original[index], 'value and index are correct');
-				t.equal(arguments.length, 2, 'value and index are only arguments passed to the mapping function');
+				te.equal(value, original[index], 'value and index are correct');
+				te.equal(arguments.length, 2, 'value and index are only arguments passed to the mapping function');
 				return value * 2;
 			});
-			t.deepEqual(actual, [2, 4, 6]);
+			te.deepEqual(actual, [2, 4, 6]);
 			te.end();
 		});
 
@@ -150,14 +150,14 @@ var runTests = function run(arrayFrom) {
 			var actual = arrayFrom('abc', function (c) {
 				return c.toUpperCase();
 			});
-			t.deepEqual(actual, ['A', 'B', 'C']);
+			te.deepEqual(actual, ['A', 'B', 'C']);
 			te.end();
 		});
 
 		t.test('accepts an object thisArg', function (st) {
 			var context = {};
 			arrayFrom(original, function () {
-				t.equal(this, context, 'given context is the actual context');
+				st.equal(this, context, 'given context is the actual context');
 			}, context);
 			st.end();
 		});
