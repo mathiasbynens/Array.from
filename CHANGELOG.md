@@ -1,3 +1,33 @@
+1.1.0 / 2020-01-17
+=================
+* [New] properly handle all iterables with `es-get-iterator`/`iterate-value`
+* [New] add `auto` entry point
+* [New] Add initial support for iterators (#27)
+* [Fix] use polyfill instead of implementation in main export
+* [Fix] Use `es-abstract`'s `IsConstructor` to support ES2015 classes (#54)
+* [Fix] port over more polyfill edge cases from es6-shim
+* [Fix] remove `system.global`; it’s unnecessary
+* [Fix] add missing `is-callable` dependency
+* [Fix] fix the iterator support for legacy collections (#42)
+* [Fix] Safari 8: only use `for..of` on truly iterable things
+* [Fix] Fix the iterator parsing feature detection for legacy Safari (#40, #39)
+* [Fix] Don't use unexpected side-effects; fix incomplete processing with strings (#38, #37)
+* [Fix] Segregate Map and Set object detections (#35)
+* [Fix] Support surrogate pairs, align indents (#33, #34)
+* [readme] fix github markdown bug
+* [Deps] update `define-properties`
+* [Deps] update `es-abstract`; refactor to use split ops
+* [meta] Only apps should have lockfiles
+* [meta] rename license file
+* [Dev Deps] update `eslint`, `@ljharb/eslint-config`, `covert`, `safe-publish-latest`, `tape`
+* [Tests] use shared travis-ci configs
+* [Tests] use simpler hasMap/hasSet checks (#44)
+* [Tests] add `npx aud` in `posttest`
+* [Tests] fix some incorrect tests that tape v5 caught
+* [Tests] fix tests on node 0.10 and 0.8; fix Map/Set tests.
+* [Tests] fix skip logic for “numericPropertySetterBug” browsers.
+* [Tests] Skip setter test on browser with buggy descriptors (#31)
+
 1.0.3 / 2016-09-10
 =================
   * [Fix] present + `undefined` mapping argument is ignored; fix tests (#32)
