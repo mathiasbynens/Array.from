@@ -59,12 +59,11 @@
 	},
 	"dependencies": {
 		"define-properties": "^1.1.2",
-		"es-abstract": "^1.7.0",
+		"es-abstract": "^1.17.2",
 		"has": "^1.0.1",
-		"is-callable": "^1.1.3",
+		"has-symbols": "^1.0.0",
 		"is-string": "^1.0.4",
-		"isarray": "^1.0.0",
-		"has-symbols": "^1.0.0"
+		"isarray": "^1.0.0"
 	},
 	"testling": {
 		"files": "tests/tests.js",

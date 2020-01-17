@@ -1,10 +1,12 @@
 'use strict';
 
-var ES = require('es-abstract/es6');
+var Call = require('es-abstract/2019/Call');
+var IsCallable = require('es-abstract/2019/IsCallable');
+var ToObject = require('es-abstract/2019/ToObject');
+var ToLength = require('es-abstract/2019/ToLength');
 var supportsDescriptors = require('define-properties').supportsDescriptors;
 var has = require('has');
 var isString = require('is-string');
-var isCallable = require('is-callable');
 var isArray = require('isarray');
 
 var parseIterable = function (iterator) {
@@ -43,8 +45,8 @@ var parseIterable = function (iterator) {
 var hasSymbols = require('has-symbols')();
 var iteratorSymbol;
 var forOf;
-var hasSet = typeof Set === 'function' && isCallable(Set.prototype.values);
-var hasMap = typeof Map === 'function' && isCallable(Map.prototype.entries);
+var hasSet = typeof Set === 'function' && IsCallable(Set.prototype.values);
+var hasMap = typeof Map === 'function' && IsCallable(Map.prototype.entries);
 
 if (hasSymbols) {
 	iteratorSymbol = Symbol.iterator;
@@ -160,7 +162,7 @@ module.exports = function from(items) {
 	var mapFn, T;
 	if (typeof arguments[1] !== 'undefined') {
 		mapFn = arguments[1];
-		if (!ES.IsCallable(mapFn)) {
+		if (!IsCallable(mapFn)) {
 			throw new TypeError('When provided, the second argument to `Array.from` must be a function');
 		}
 		if (arguments.length > 2) {
@@ -168,16 +170,16 @@ module.exports = function from(items) {
 		}
 	}
 
-	var arrayLike = ES.ToObject(parseIterableLike(items));
-	var len = ES.ToLength(arrayLike.length);
-	var A = ES.IsCallable(C) ? ES.ToObject(new C(len)) : new Array(len);
+	var arrayLike = ToObject(parseIterableLike(items));
+	var len = ToLength(arrayLike.length);
+	var A = IsCallable(C) ? ToObject(new C(len)) : new Array(len);
 	var k = 0;
 	var kValue, mappedValue;
 
 	while (k < len) {
 		kValue = arrayLike[k];
 		if (mapFn) {
-			mappedValue = typeof T === 'undefined' ? mapFn(kValue, k) : ES.Call(mapFn, T, [kValue, k]);
+			mappedValue = typeof T === 'undefined' ? mapFn(kValue, k) : Call(mapFn, T, [kValue, k]);
 		} else {
 			mappedValue = kValue;
 		}

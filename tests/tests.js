@@ -3,7 +3,7 @@
 /* eslint-disable no-invalid-this */
 
 var test = require('tape');
-var ES = require('es-abstract/es6');
+var IsCallable = require('es-abstract/2019/IsCallable');
 var supportsDescriptors = require('define-properties').supportsDescriptors;
 var hasSymbols = require('has-symbols')();
 
@@ -35,7 +35,7 @@ var runTests = function run(arrayFrom) {
 		t.end();
 	});
 
-	var methodExists = ES.IsCallable(Array.from);
+	var methodExists = IsCallable(Array.from);
 
 	test('from is not enumerable', { 'skip': !methodExists }, function (t) {
 		t.notOk(Object.prototype.propertyIsEnumerable.call(Array, 'from'));

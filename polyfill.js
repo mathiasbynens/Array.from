@@ -1,6 +1,6 @@
 'use strict';
 
-var ES = require('es-abstract/es6');
+var IsCallable = require('es-abstract/2019/IsCallable');
 var implementation = require('./implementation');
 
 var tryCall = function (fn) {
@@ -13,7 +13,7 @@ var tryCall = function (fn) {
 };
 
 module.exports = function getPolyfill() {
-	var implemented = ES.IsCallable(Array.from)
+	var implemented = IsCallable(Array.from)
 		&& tryCall(function () { Array.from({ 'length': -Infinity }); })
 		&& !tryCall(function () { Array.from([], undefined); });
 
