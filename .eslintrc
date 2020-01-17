@@ -8,11 +8,23 @@
 		"max-nested-callbacks": [2, 3],
 		"max-params": [2, 3],
 		"max-statements": [2, 32],
-		"new-cap": [2, { "capIsNewExceptions": ["Call", "CreateDataPropertyOrThrow", "Get", "IsCallable", "ToLength", "ToObject", "ToString"] }],
+		"multiline-comment-style": 0,
+		"new-cap": [2, {
+			"capIsNewExceptions": [
+				"Call",
+				"CreateDataPropertyOrThrow",
+				"Get",
+				"IsArray",
+				"IsCallable",
+				"ToLength",
+				"ToObject",
+				"ToString",
+			],
+		}],
 		"no-magic-numbers": 0,
 		"operator-linebreak": [2, "before"],
 		"quote-props": [2, "always", { "keywords": true }],
-		"spaced-comment": [0],
+		"spaced-comment": 0,
 		"id-length": [2, { "max": 25, "min": 1 }]
 	},
 
@@ -22,7 +34,6 @@
 			"rules": {
 				"max-lines-per-function": 0,
 				"max-statements-per-line": [2, { "max": 2 }],
-				"multiline-comment-style": 0,
 			},
 		},
 	],
