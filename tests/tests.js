@@ -7,26 +7,8 @@ var IsCallable = require('es-abstract/2019/IsCallable');
 var supportsDescriptors = require('define-properties').supportsDescriptors;
 var hasSymbols = require('has-symbols')();
 
-var makeIterator = function (array) {
-	var nextIndex = 0;
-	var value;
-	return {
-		'next': function () {
-			if (nextIndex < array.length) {
-				value = array[nextIndex];
-				nextIndex = nextIndex + 1;
-				return {
-					'done': false,
-					'value': value
-				};
-			} else {
-				return {
-					'done': true,
-					'value': undefined
-				};
-			}
-		}
-	};
+var makeIterable = function (array) {
+	return array.slice();
 };
 
 var runTests = function run(arrayFrom) {
@@ -299,9 +281,9 @@ var runTests = function run(arrayFrom) {
 		});
 
 		var codePoints = ['a', '\uD834\uDF06', 'b'];
-		t.deepEqual(arrayFrom(makeIterator(codePoints)), codePoints);
-		t.deepEqual(arrayFrom.call(null, makeIterator(codePoints)), codePoints);
-		t.deepEqual(arrayFrom.apply(null, [makeIterator(codePoints)]), codePoints);
+		t.deepEqual(arrayFrom(makeIterable(codePoints)), codePoints);
+		t.deepEqual(arrayFrom.call(null, makeIterable(codePoints)), codePoints);
+		t.deepEqual(arrayFrom.apply(null, [makeIterable(codePoints)]), codePoints);
 		t.end();
 	});
 

@@ -1,160 +1,15 @@
 'use strict';
 
 var Call = require('es-abstract/2019/Call');
+var CreateDataPropertyOrThrow = require('es-abstract/2019/CreateDataPropertyOrThrow');
+var Get = require('es-abstract/2019/Get');
 var IsCallable = require('es-abstract/2019/IsCallable');
 var ToObject = require('es-abstract/2019/ToObject');
 var ToLength = require('es-abstract/2019/ToLength');
-var supportsDescriptors = require('define-properties').supportsDescriptors;
-var has = require('has');
-var isString = require('is-string');
-var isArray = require('isarray');
+var ToString = require('es-abstract/2019/ToString');
+var iterate = require('iterate-value');
 
-var parseIterable = function (iterator) {
-	var done = false;
-	var iterableResponse;
-	var tempArray = [];
-
-	if (iterator && typeof iterator.next === 'function') {
-		while (!done) {
-			iterableResponse = iterator.next();
-			if (
-				has(iterableResponse, 'value')
-				&& has(iterableResponse, 'done')
-			) {
-				if (iterableResponse.done === true) {
-					done = true;
-					break; // eslint-disable-line no-restricted-syntax
-
-				} else if (iterableResponse.done !== false) {
-					break; // eslint-disable-line no-restricted-syntax
-				}
-
-				tempArray.push(iterableResponse.value);
-			} else if (iterableResponse.done === true) {
-				done = true;
-				break; // eslint-disable-line no-restricted-syntax
-			} else {
-				break; // eslint-disable-line no-restricted-syntax
-			}
-		}
-	}
-
-	return done ? tempArray : false;
-};
-
-var hasSymbols = require('has-symbols')();
-var iteratorSymbol;
-var forOf;
-var hasSet = typeof Set === 'function' && IsCallable(Set.prototype.values);
-var hasMap = typeof Map === 'function' && IsCallable(Map.prototype.entries);
-
-if (hasSymbols) {
-	iteratorSymbol = Symbol.iterator;
-} else {
-	var iterate;
-	try {
-		iterate = Function('iterable', 'var arr = []; for (var value of iterable) arr.push(value); return arr;'); // eslint-disable-line no-new-func
-	} catch (e) {}
-	var supportsStrIterator = (function () {
-		try {
-			var supported = false;
-			var obj = { // eslint-disable-line no-unused-vars
-				'@@iterator': function () {
-					return {
-						'next': function () {
-							supported = true;
-							return {
-								'done': true,
-								'value': undefined
-							};
-						}
-					};
-				}
-			};
-
-			iterate(obj);
-			return supported;
-		} catch (e) {
-			return false;
-		}
-	}());
-
-	if (supportsStrIterator) {
-		iteratorSymbol = '@@iterator';
-	} else if (typeof Set === 'function') {
-		var s = new Set();
-		s.add(0);
-		try {
-			if (iterate(s).length === 1) {
-				forOf = iterate;
-			}
-		} catch (e) {
-		}
-	}
-}
-
-var isSet;
-if (hasSet) {
-	var setSize = Object.getOwnPropertyDescriptor(Set.prototype, 'size').get;
-	isSet = function (set) {
-		try {
-			setSize.call(set);
-			return true;
-		} catch (e) {
-			return false;
-		}
-	};
-}
-
-var isMap;
-if (hasMap) {
-	var mapSize = Object.getOwnPropertyDescriptor(Map.prototype, 'size').get;
-	isMap = function (m) {
-		try {
-			mapSize.call(m);
-			return true;
-		} catch (e) {
-			return false;
-		}
-	};
-}
-
-var setValues = hasSet && Set.prototype.values;
-var mapEntries = hasMap && Map.prototype.entries;
-var usingIterator = function (items) {
-	if (has(items, iteratorSymbol)) {
-		return items[iteratorSymbol]();
-	} else if (setValues && isSet(items)) {
-		return setValues.call(items);
-	} else if (mapEntries && isMap(items)) {
-		return mapEntries.call(items);
-	}
-	return items;
-};
-
-var strMatch = String.prototype.match;
-
-var parseIterableLike = function (items) {
-	var arr = parseIterable(usingIterator(items));
-
-	if (!arr) {
-		if (isString(items)) {
-			arr = strMatch.call(items, /[\uD800-\uDBFF][\uDC00-\uDFFF]?|[^\uD800-\uDFFF]|./g) || [];
-		} else if (forOf && !isArray(items)) {
-			// Safari 8's native Map or Set can't be iterated except with for..of
-			try {
-				arr = forOf(items);
-			} catch (e) {}
-		}
-	}
-	return arr || items;
-};
-
-/*! https://mths.be/array-from v0.2.0 by @mathias */
 module.exports = function from(items) {
-	var defineProperty = supportsDescriptors ? Object.defineProperty : function put(object, key, descriptor) {
-		object[key] = descriptor.value;
-	};
 	var C = this;
 	if (items === null || typeof items === 'undefined') {
 		throw new TypeError('`Array.from` requires an array-like object, not `null` or `undefined`');
@@ -170,25 +25,28 @@ module.exports = function from(items) {
 		}
 	}
 
-	var arrayLike = ToObject(parseIterableLike(items));
+	var values;
+	try {
+		values = iterate(items);
+	} catch (e) {
+		values = items;
+	}
+
+	var arrayLike = ToObject(values);
 	var len = ToLength(arrayLike.length);
 	var A = IsCallable(C) ? ToObject(new C(len)) : new Array(len);
 	var k = 0;
 	var kValue, mappedValue;
 
 	while (k < len) {
-		kValue = arrayLike[k];
+		var Pk = ToString(k);
+		kValue = Get(arrayLike, Pk);
 		if (mapFn) {
 			mappedValue = typeof T === 'undefined' ? mapFn(kValue, k) : Call(mapFn, T, [kValue, k]);
 		} else {
 			mappedValue = kValue;
 		}
-		defineProperty(A, k, {
-			'configurable': true,
-			'enumerable': true,
-			'value': mappedValue,
-			'writable': true
-		});
+		CreateDataPropertyOrThrow(A, Pk, mappedValue);
 		k += 1;
 	}
 	A.length = len;

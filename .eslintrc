@@ -8,7 +8,7 @@
 		"max-nested-callbacks": [2, 3],
 		"max-params": [2, 3],
 		"max-statements": [2, 32],
-		"new-cap": [2, { "capIsNewExceptions": ["Call", "IsCallable", "ToLength", "ToObject"] }],
+		"new-cap": [2, { "capIsNewExceptions": ["Call", "CreateDataPropertyOrThrow", "Get", "IsCallable", "ToLength", "ToObject", "ToString"] }],
 		"no-magic-numbers": 0,
 		"operator-linebreak": [2, "before"],
 		"quote-props": [2, "always", { "keywords": true }],
