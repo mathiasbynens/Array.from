@@ -46,6 +46,7 @@
 		"pretest": "npm run lint",
 		"test": "es-shim-api --bound && npm run tests-only",
 		"tests-only": "node test",
+		"posttest": "npx aud",
 		"coverage": "covert test/index.js",
 		"lint": "eslint ."
 	},
