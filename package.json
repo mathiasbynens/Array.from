@@ -50,7 +50,7 @@
 		"lint": "eslint *.js tests/*.js"
 	},
 	"devDependencies": {
-		"@es-shims/api": "^1.2.0",
+		"@es-shims/api": "^2.1.2",
 		"@ljharb/eslint-config": "^11.0.0",
 		"covert": "^1.1.0",
 		"eslint": "^3.16.0",
