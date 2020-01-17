@@ -25,14 +25,14 @@ var runTests = function run(arrayFrom) {
 	});
 
 	test('requires an array-like object', function (t) {
-		t.throws(function () { arrayFrom(); }, TypeError);
-		t.throws(function () { arrayFrom(null); }, TypeError);
+		t['throws'](function () { arrayFrom(); }, TypeError);
+		t['throws'](function () { arrayFrom(null); }, TypeError);
 		t.end();
 	});
 
 	test('throws with invalid lengths', function (t) {
-		t.throws(function () { arrayFrom({ 'length': Infinity }); }, RangeError);
-		t.throws(function () { arrayFrom({ 'length': Math.pow(2, 32) }); }, RangeError);
+		t['throws'](function () { arrayFrom({ 'length': Infinity }); }, RangeError);
+		t['throws'](function () { arrayFrom({ 'length': Math.pow(2, 32) }); }, RangeError);
 		t.end();
 	});
 
@@ -123,13 +123,13 @@ var runTests = function run(arrayFrom) {
 		t.doesNotThrow(function () { arrayFrom([], undefined); });
 		t.doesNotThrow(function () { arrayFrom([], undefined, undefined); });
 		t.doesNotThrow(function () { arrayFrom([], undefined, {}); });
-		t.throws(function () { arrayFrom([], null); }, TypeError);
-		t.throws(function () { arrayFrom([], false); }, TypeError);
-		t.throws(function () { arrayFrom([], true); }, TypeError);
-		t.throws(function () { arrayFrom([], {}); }, TypeError);
-		t.throws(function () { arrayFrom([], /a/g); }, TypeError);
-		t.throws(function () { arrayFrom([], 'foo'); }, TypeError);
-		t.throws(function () { arrayFrom([], 42); }, TypeError);
+		t['throws'](function () { arrayFrom([], null); }, TypeError);
+		t['throws'](function () { arrayFrom([], false); }, TypeError);
+		t['throws'](function () { arrayFrom([], true); }, TypeError);
+		t['throws'](function () { arrayFrom([], {}); }, TypeError);
+		t['throws'](function () { arrayFrom([], /a/g); }, TypeError);
+		t['throws'](function () { arrayFrom([], 'foo'); }, TypeError);
+		t['throws'](function () { arrayFrom([], 42); }, TypeError);
 		t.end();
 	});
 
@@ -195,7 +195,7 @@ var runTests = function run(arrayFrom) {
 		try {
 			var obj = {};
 			Object.defineProperty(obj, '0', {
-				'get': function () {},
+				'get': function () {}, // eslint-disable-line getter-return
 				'set': function () { throw new Error(); }
 			});
 			obj[0] = 1;
@@ -208,11 +208,11 @@ var runTests = function run(arrayFrom) {
 	test('no setters are called for indexes', { 'skip': !supportsDescriptors || numericPropertySetterBug }, function (t) {
 		var MyType = function () {};
 		Object.defineProperty(MyType.prototype, '0', {
-			'get': function () {},
+			'get': function () {}, // eslint-disable-line getter-return
 			'set': function (x) { throw new Error('setter called: ' + x); }
 		});
 		var myInstance = new MyType();
-		t.throws(function () { myInstance[0] = 'foo'; });
+		t['throws'](function () { myInstance[0] = 'foo'; });
 
 		var actual = arrayFrom.call(MyType, { '0': 'abc', 'length': 1 });
 		var expected = new MyType();
