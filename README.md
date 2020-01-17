@@ -1,4 +1,4 @@
-#Array.from <sup>[![Version Badge][npm-version-svg]][package-url]</sup>
+# Array.from <sup>[![Version Badge][npm-version-svg]][package-url]</sup>
 
 [![Build Status][travis-svg]][travis-url]
 [![dependency status][deps-svg]][deps-url]
@@ -15,10 +15,6 @@ This package implements the [es-shim API](https://github.com/es-shims/api) inter
 The `Array.from()` method creates a new Array instance from an array-like or iterable object.
 
 ## Installation
-
-In a browser:
-
-Via [npm](https://www.npmjs.com/):
 
 ```bash
 npm install array.from
