@@ -1,3 +1,10 @@
+1.1.1 / 2021-12-09
+=================
+* [Deps] update `es-abstract`, `iterate-value`
+* [Dev Deps] update `eslint`, `@ljharb/eslint-config`, `@es-shims/api`, `has-symbols`, `safe-publish-latest`, `tape`; add `nyc`
+* [actions] reuse common workflows
+* [meta] do not publish workflow files
+
 1.1.0 / 2020-01-17
 =================
 * [New] properly handle all iterables with `es-get-iterator`/`iterate-value`
