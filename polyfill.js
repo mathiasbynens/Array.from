@@ -26,22 +26,20 @@ module.exports = function getPolyfill() {
 				/* eslint no-invalid-this: 0 */
 				if (arguments.length > 1 && typeof arguments[1] !== 'undefined') {
 					return Call(origArrayFrom, this, arguments);
-				} else {
-					return Call(origArrayFrom, this, [items]);
 				}
+				return Call(origArrayFrom, this, [items]);
+
 			};
 		}
 		var implemented = tryCall(function () {
 			// Detects a Firefox bug in v32
 			// https://bugzilla.mozilla.org/show_bug.cgi?id=1063993
 			return Array.from({ 'length': -1 }) === 0;
-		})
-		&& tryCall(function () {
+		}) && tryCall(function () {
 			// Detects a bug in Webkit nightly r181886
 			var arr = Array.from([0].entries());
 			return arr.length === 1 && IsArray(arr[0]) && arr[0][0] === 0 && arr[0][1] === 0;
-		})
-		&& tryCall(function () {
+		}) && tryCall(function () {
 			return Array.from({ 'length': -Infinity });
 		});
 		if (implemented) {

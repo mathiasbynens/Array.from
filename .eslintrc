@@ -4,10 +4,6 @@
 	"extends": "@ljharb",
 
 	"rules": {
-		"complexity": [2, 16],
-		"max-nested-callbacks": [2, 3],
-		"max-params": [2, 3],
-		"max-statements": [2, 32],
 		"multiline-comment-style": 0,
 		"new-cap": [2, {
 			"capIsNewExceptions": [
@@ -23,18 +19,17 @@
 			],
 		}],
 		"no-magic-numbers": 0,
-		"operator-linebreak": [2, "before"],
 		"quote-props": [2, "always", { "keywords": true }],
-		"spaced-comment": 0,
-		"id-length": [2, { "max": 25, "min": 1 }]
+		"id-length": [2, { "max": 25, "min": 1 }],
 	},
+
+	"ignorePatterns": ["coverage"],
 
 	"overrides": [
 		{
 			"files": "test/**",
 			"rules": {
 				"max-lines-per-function": 0,
-				"max-statements-per-line": [2, { "max": 2 }],
 			},
 		},
 	],

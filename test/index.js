@@ -319,6 +319,6 @@ runTests(from);
 
 runTests(from.getPolyfill());
 
-from.shim();
+require('../auto');
 
 runTests(Array.from);
