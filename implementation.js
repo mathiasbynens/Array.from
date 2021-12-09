@@ -1,13 +1,14 @@
 'use strict';
 
-var Call = require('es-abstract/2019/Call');
-var CreateDataPropertyOrThrow = require('es-abstract/2019/CreateDataPropertyOrThrow');
-var Get = require('es-abstract/2019/Get');
-var IsCallable = require('es-abstract/2019/IsCallable');
-var IsConstructor = require('es-abstract/2019/IsConstructor');
-var ToObject = require('es-abstract/2019/ToObject');
-var ToLength = require('es-abstract/2019/ToLength');
-var ToString = require('es-abstract/2019/ToString');
+var Call = require('es-abstract/2021/Call');
+var CreateDataPropertyOrThrow = require('es-abstract/2021/CreateDataPropertyOrThrow');
+var Get = require('es-abstract/2021/Get');
+var IsCallable = require('es-abstract/2021/IsCallable');
+var IsConstructor = require('es-abstract/2021/IsConstructor');
+var ToObject = require('es-abstract/2021/ToObject');
+var ToLength = require('es-abstract/2021/ToLength');
+var ToString = require('es-abstract/2021/ToString');
+
 var iterate = require('iterate-value');
 
 module.exports = function from(items) {
