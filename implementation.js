@@ -36,9 +36,7 @@ var makeThrower = function (err) {
 
 module.exports = function from(items) {
 	var C = this;
-	if (items === null || typeof items === 'undefined') {
-		throw new TypeError('`Array.from` requires an array-like object, not `null` or `undefined`');
-	}
+
 	var mapFn;
 	if (arguments.length > 1 && typeof arguments[1] !== 'undefined') {
 		mapFn = arguments[1];
@@ -51,7 +49,7 @@ module.exports = function from(items) {
 	var usingIterator = getIteratorMethod(getIteratorES, items);
 
 	if (typeof usingIterator !== 'undefined') {
-		var A = IsConstructor(C) ? ToObject(new C(0)) : ArrayCreate(0);
+		var A = IsConstructor(C) ? new C() : ArrayCreate(0);
 		var iteratorRecord = GetIterator(items, 'sync', usingIterator);
 		var k = 0;
 		while (true) { // eslint-disable-line no-constant-condition
@@ -95,16 +93,14 @@ module.exports = function from(items) {
 		}
 	}
 
-	var values = items;
-
-	var arrayLike = ToObject(values);
+	var arrayLike = ToObject(items);
 	var len = LengthOfArrayLike(arrayLike);
 	/* eslint no-redeclare: 0 */
-	var A = IsConstructor(C) ? ToObject(new C(len)) : ArrayCreate(len);
+	var A = IsConstructor(C) ? new C(len) : ArrayCreate(len);
+
 	var k = 0;
 	var kValue;
 	var mappedValue;
-
 	while (k < len) {
 		var Pk = ToString(k);
 		kValue = Get(arrayLike, Pk);
@@ -116,6 +112,8 @@ module.exports = function from(items) {
 		CreateDataPropertyOrThrow(A, Pk, mappedValue);
 		k += 1;
 	}
-	A.length = len;
+
+	Set(A, 'length', len, true);
+
 	return A;
 };

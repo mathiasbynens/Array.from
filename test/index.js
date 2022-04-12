@@ -334,6 +334,42 @@ var runTests = function run(arrayFrom) {
 
 		t.end();
 	});
+
+	test('test262: iter-cstm-ctor', function (t) {
+		var thisVal;
+		var args;
+		var callCount = 0;
+		var C = function () {
+			thisVal = this;
+			args = arguments;
+			callCount += 1;
+		};
+		var result;
+		var items = {};
+		items[Symbol.iterator] = function () {
+			return {
+				'next': function () {
+					return {
+						'done': true
+					};
+				}
+			};
+		};
+
+		result = arrayFrom.call(C, items);
+
+		t.ok(result instanceof C, 'The result of evaluating (result instanceof C) is expected to be true');
+		t.equal(
+			result.constructor,
+			C,
+			'The value of result.constructor is expected to equal the value of C'
+		);
+		t.equal(callCount, 1, 'The value of callCount is expected to be 1');
+		t.equal(thisVal, result, 'The value of thisVal is expected to equal the value of result');
+		t.equal(args.length, 0, 'The value of args.length is expected to be 0');
+
+		t.end();
+	});
 };
 
 var from = require('../');
