@@ -335,7 +335,7 @@ var runTests = function run(arrayFrom) {
 		t.end();
 	});
 
-	test('test262: iter-cstm-ctor', function (t) {
+	test('test262: iter-cstm-ctor', { 'skip': !hasSymbols }, function (t) {
 		var thisVal;
 		var args;
 		var callCount = 0;
