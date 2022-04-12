@@ -56,22 +56,22 @@ var runTests = function run(arrayFrom) {
 	});
 
 	test('works with primitive strings', function (t) {
-		t.deepEqual(arrayFrom(''), []);
-		t.deepEqual(arrayFrom('abc'), 'abc'.split(''));
-		t.deepEqual(arrayFrom('a\nb\nc\n\n'), 'a\nb\nc\n\n'.split(''));
-		t.deepEqual(arrayFrom('foo\uD834\uDF06bar'), ['f', 'o', 'o', '\uD834\uDF06', 'b', 'a', 'r']);
-		t.deepEqual(arrayFrom('foo\uD834bar'), ['f', 'o', 'o', '\uD834', 'b', 'a', 'r']);
-		t.deepEqual(arrayFrom('foo\uDF06bar'), ['f', 'o', 'o', '\uDF06', 'b', 'a', 'r']);
+		t.deepEqual(arrayFrom(''), [], 'empty string');
+		t.deepEqual(arrayFrom('abc'), 'abc'.split(''), 'abc');
+		t.deepEqual(arrayFrom('a\nb\nc\n\n'), 'a\nb\nc\n\n'.split(''), 'abc with newlines');
+		t.deepEqual(arrayFrom('foo\uD834\uDF06bar'), ['f', 'o', 'o', '\uD834\uDF06', 'b', 'a', 'r'], 'foo hamburger bar');
+		t.deepEqual(arrayFrom('foo\uD834bar'), ['f', 'o', 'o', '\uD834', 'b', 'a', 'r'], 'foo ham bar');
+		t.deepEqual(arrayFrom('foo\uDF06bar'), ['f', 'o', 'o', '\uDF06', 'b', 'a', 'r'], 'foo burger bar');
 		t.end();
 	});
 
 	test('works with object strings', function (t) {
-		t.deepEqual(arrayFrom(Object('')), []);
-		t.deepEqual(arrayFrom(Object('abc')), 'abc'.split(''));
-		t.deepEqual(arrayFrom(Object('a\nb\nc\n\n')), 'a\nb\nc\n\n'.split(''));
-		t.deepEqual(arrayFrom(Object('foo\uD834\uDF06bar')), ['f', 'o', 'o', '\uD834\uDF06', 'b', 'a', 'r']);
-		t.deepEqual(arrayFrom(Object('foo\uD834bar')), ['f', 'o', 'o', '\uD834', 'b', 'a', 'r']);
-		t.deepEqual(arrayFrom(Object('foo\uDF06bar')), ['f', 'o', 'o', '\uDF06', 'b', 'a', 'r']);
+		t.deepEqual(arrayFrom(Object('')), [], 'boxed empty string');
+		t.deepEqual(arrayFrom(Object('abc')), 'abc'.split(''), 'boxed abc');
+		t.deepEqual(arrayFrom(Object('a\nb\nc\n\n')), 'a\nb\nc\n\n'.split(''), 'boxed abc with newlines');
+		t.deepEqual(arrayFrom(Object('foo\uD834\uDF06bar')), ['f', 'o', 'o', '\uD834\uDF06', 'b', 'a', 'r'], 'boxed foo hamburger bar');
+		t.deepEqual(arrayFrom(Object('foo\uD834bar')), ['f', 'o', 'o', '\uD834', 'b', 'a', 'r'], 'boxed foo ham bar');
+		t.deepEqual(arrayFrom(Object('foo\uDF06bar')), ['f', 'o', 'o', '\uDF06', 'b', 'a', 'r'], 'boxed foo burger bar');
 		t.end();
 	});
 
