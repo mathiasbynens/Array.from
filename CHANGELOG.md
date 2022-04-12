@@ -1,3 +1,10 @@
+1.1.2 / 2022-04-11
+=================
+* [Fix] refactor to use actual spec steps for iterators
+* [Deps] update `es-abstract`
+* [Dev Deps] update `eslint`, `@ljharb/eslint-config`, `aud`, `auto-changelog`, `has-symbols`, `tape`
+* [Tests] improve error messages
+
 1.1.1 / 2021-12-09
 =================
 * [Deps] update `es-abstract`, `iterate-value`
