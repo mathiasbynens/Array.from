@@ -309,6 +309,31 @@ var runTests = function run(arrayFrom) {
 		t.equal(arrayFrom.name, 'from', 'Array#from has name "from"');
 		t.end();
 	});
+
+	test('test262: elements-deleted-after', function (t) {
+		var originalArray = [0, 1, -2, 4, -8, 16];
+		var array = [0, 1, -2, 4, -8, 16];
+		var o = { 'arrayIndex': -1 };
+
+		var mapper = function mapFn(value, index) {
+			this.arrayIndex += 1;
+			// t.equal(value, array[this.arrayIndex], 'The value of value is expected to equal the value of array[this.arrayIndex]: ' + index + ', ' + this.arrayIndex);
+			t.equal(index, this.arrayIndex, 'The value of index is expected to equal the value of this.arrayIndex');
+
+			array.splice(array.length - 1, 1);
+			return 127;
+		};
+
+		var a = arrayFrom(array, mapper, o);
+
+		t.equal(a.length, originalArray.length / 2, 'The value of a.length is expected to be originalArray.length / 2');
+
+		for (var j = 0; j < originalArray.length / 2; j++) {
+			t.equal(a[j], 127, 'The value of a[j] is expected to be 127');
+		}
+
+		t.end();
+	});
 };
 
 var from = require('../');

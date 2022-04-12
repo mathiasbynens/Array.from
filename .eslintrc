@@ -4,16 +4,24 @@
 	"extends": "@ljharb",
 
 	"rules": {
+		"max-lines-per-function": 0,
+		"max-statements": 0,
 		"multiline-comment-style": 0,
 		"new-cap": [2, {
 			"capIsNewExceptions": [
+				"ArrayCreate",
 				"Call",
 				"CreateDataPropertyOrThrow",
 				"Get",
 				"IsArray",
+				"IteratorClose",
+				"IteratorStep",
+				"IteratorValue",
+				"GetIterator",
+				"Set",
 				"IsCallable",
 				"IsConstructor",
-				"ToLength",
+				"LengthOfArrayLike",
 				"ToObject",
 				"ToString",
 			],
