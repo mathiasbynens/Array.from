@@ -1,3 +1,8 @@
+1.1.3 / 2022-04-12
+=================
+* [Fix] when using an iterator, do not pass an argument to the custom constructor
+* [Tests] add test that passes with es-abstract bugfix
+
 1.1.2 / 2022-04-11
 =================
 * [Fix] refactor to use actual spec steps for iterators
