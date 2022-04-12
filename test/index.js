@@ -370,6 +370,31 @@ var runTests = function run(arrayFrom) {
 
 		t.end();
 	});
+
+	test('test262: iter-set-elem-prop-non-writable', { 'skip': !Object.defineProperty }, function (t) {
+		var A = function () {
+			Object.defineProperty(this, '0', {
+				'value': 1,
+				'writable': false,
+				'enumerable': false,
+				'configurable': true
+			});
+		};
+
+		var res = arrayFrom.call(A, [2]);
+
+		t.deepEqual(
+			Object.getOwnPropertyDescriptor(res, '0'),
+			{
+				'configurable': true,
+				'enumerable': true,
+				'writable': true,
+				'value': 2
+			}
+		);
+
+		t.end();
+	});
 };
 
 var from = require('../');
