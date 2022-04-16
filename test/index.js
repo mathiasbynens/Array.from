@@ -6,6 +6,7 @@ var test = require('tape');
 var IsCallable = require('es-abstract/2021/IsCallable');
 var supportsDescriptors = require('define-properties').supportsDescriptors;
 var hasSymbols = require('has-symbols')();
+var mockProperty = require('mock-property');
 
 var makeIterable = function (array) {
 	return array.slice();
@@ -106,10 +107,8 @@ var runTests = function run(arrayFrom) {
 	});
 
 	test('it includes Object.prototype values when it is polluted', function (t) {
-		/* eslint-disable no-extend-native */
-		Object.prototype[4] = 42;
+		t.teardown(mockProperty(Object.prototype, 4, { 'value': 42 }));
 		t.deepEqual(arrayFrom({ '0': 1, '1': 2, '2': 3, '3': 4, 'length': 5 }), [1, 2, 3, 4, 42]);
-		delete Object.prototype[4];
 		t.end();
 	});
 
