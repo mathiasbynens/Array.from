@@ -3,7 +3,7 @@
 /* eslint-disable no-invalid-this */
 
 var test = require('tape');
-var IsCallable = require('es-abstract/2021/IsCallable');
+var IsCallable = require('es-abstract/2022/IsCallable');
 var supportsDescriptors = require('define-properties').supportsDescriptors;
 var hasSymbols = require('has-symbols')();
 var mockProperty = require('mock-property');
