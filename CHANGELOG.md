@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v1.1.4](https://github.com/mathiasbynens/Array.from/compare/v1.1.3...v1.1.4) - 2023-02-23
+
+### Commits
+
+- [meta] use `npmignore` to autogenerate an npmignore file [`5b6ad44`](https://github.com/mathiasbynens/Array.from/commit/5b6ad44c1b60afb506f15b3e42d0fd3a676083be)
+- [Deps] update `es-abstract`, `define-properties` [`f24ca6b`](https://github.com/mathiasbynens/Array.from/commit/f24ca6bac14d99f21cf753c1001f8af4d5bc24c7)
+- [meta] add `auto-changelog` [`1dcac08`](https://github.com/mathiasbynens/Array.from/commit/1dcac08bcc6df529748eff36e6a3d55ce3399e7d)
+- [Dev Deps] update `@ljharb/eslint-config`, `@es-shims/api`, `aud`, `tape` [`20d7da6`](https://github.com/mathiasbynens/Array.from/commit/20d7da6ba5df808c1e8aec3d8cb8978b304db3e4)
+- [Tests] use `mock-property` [`0a5711e`](https://github.com/mathiasbynens/Array.from/commit/0a5711ec16b900e956405a88a7274fe3ada96c12)
+- [meta] create SECURITY.md [`3c6098f`](https://github.com/mathiasbynens/Array.from/commit/3c6098f918a5bb1ce2addad95acc8fffb91a7f09)
+- [Tests] skip symbol test on non-symbol envs [`4970dd1`](https://github.com/mathiasbynens/Array.from/commit/4970dd19b98bc315f4e60b7ef2a18497a53f40a2)
+
 <!-- auto-changelog-above -->
 
 1.1.3 / 2022-04-12
