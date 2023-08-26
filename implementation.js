@@ -1,23 +1,23 @@
 'use strict';
 
-var AdvanceStringIndex = require('es-abstract/2022/AdvanceStringIndex');
-var ArrayCreate = require('es-abstract/2022/ArrayCreate');
-var Call = require('es-abstract/2022/Call');
-var CreateDataPropertyOrThrow = require('es-abstract/2022/CreateDataPropertyOrThrow');
-var Get = require('es-abstract/2022/Get');
-var GetIterator = require('es-abstract/2022/GetIterator');
-var GetMethod = require('es-abstract/2022/GetMethod');
-var IsArray = require('es-abstract/2022/IsArray');
-var IsCallable = require('es-abstract/2022/IsCallable');
-var IsConstructor = require('es-abstract/2022/IsConstructor');
-var IteratorClose = require('es-abstract/2022/IteratorClose');
-var IteratorStep = require('es-abstract/2022/IteratorStep');
-var IteratorValue = require('es-abstract/2022/IteratorValue');
-var LengthOfArrayLike = require('es-abstract/2022/LengthOfArrayLike');
-var Set = require('es-abstract/2022/Set');
-var ToObject = require('es-abstract/2022/ToObject');
-var ToString = require('es-abstract/2022/ToString');
-var Type = require('es-abstract/2022/Type');
+var AdvanceStringIndex = require('es-abstract/2023/AdvanceStringIndex');
+var ArrayCreate = require('es-abstract/2023/ArrayCreate');
+var Call = require('es-abstract/2023/Call');
+var CreateDataPropertyOrThrow = require('es-abstract/2023/CreateDataPropertyOrThrow');
+var Get = require('es-abstract/2023/Get');
+var GetIterator = require('es-abstract/2023/GetIterator');
+var GetMethod = require('es-abstract/2023/GetMethod');
+var IsArray = require('es-abstract/2023/IsArray');
+var IsCallable = require('es-abstract/2023/IsCallable');
+var IsConstructor = require('es-abstract/2023/IsConstructor');
+var IteratorClose = require('es-abstract/2023/IteratorClose');
+var IteratorStep = require('es-abstract/2023/IteratorStep');
+var IteratorValue = require('es-abstract/2023/IteratorValue');
+var LengthOfArrayLike = require('es-abstract/2023/LengthOfArrayLike');
+var Set = require('es-abstract/2023/Set');
+var ToObject = require('es-abstract/2023/ToObject');
+var ToString = require('es-abstract/2023/ToString');
+var Type = require('es-abstract/2023/Type');
 
 var getIteratorMethod = require('es-abstract/helpers/getIteratorMethod');
 

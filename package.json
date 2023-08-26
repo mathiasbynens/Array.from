@@ -62,7 +62,7 @@
 	},
 	"dependencies": {
 		"define-properties": "^1.2.0",
-		"es-abstract": "^1.21.1"
+		"es-abstract": "^1.22.1"
 	},
 	"testling": {
 		"files": "test/index.js"
