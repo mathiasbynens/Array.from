@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v1.1.5](https://github.com/mathiasbynens/Array.from/compare/v1.1.4...v1.1.5) - 2023-08-26
+
+### Commits
+
+- [Deps] update `es-abstract` [`acddbab`](https://github.com/mathiasbynens/Array.from/commit/acddbab1f3ec413ef80b2b0d3b52baffe1142c63)
+- [Deps] update `@es-shims/api`, `@ljharb/eslint-config`, `aud`, `tape` [`0d08029`](https://github.com/mathiasbynens/Array.from/commit/0d08029c3b80f69a18c52ff056a1bd2a6c184087)
+
 ## [v1.1.4](https://github.com/mathiasbynens/Array.from/compare/v1.1.3...v1.1.4) - 2023-02-23
 
 ### Commits
