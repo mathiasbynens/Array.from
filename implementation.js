@@ -1,31 +1,29 @@
 'use strict';
 
-var AdvanceStringIndex = require('es-abstract/2023/AdvanceStringIndex');
-var ArrayCreate = require('es-abstract/2023/ArrayCreate');
-var Call = require('es-abstract/2023/Call');
-var CreateDataPropertyOrThrow = require('es-abstract/2023/CreateDataPropertyOrThrow');
-var Get = require('es-abstract/2023/Get');
-var GetIterator = require('es-abstract/2023/GetIterator');
-var GetMethod = require('es-abstract/2023/GetMethod');
-var IsArray = require('es-abstract/2023/IsArray');
-var IsCallable = require('es-abstract/2023/IsCallable');
-var IsConstructor = require('es-abstract/2023/IsConstructor');
-var IteratorClose = require('es-abstract/2023/IteratorClose');
-var IteratorStep = require('es-abstract/2023/IteratorStep');
-var IteratorValue = require('es-abstract/2023/IteratorValue');
-var LengthOfArrayLike = require('es-abstract/2023/LengthOfArrayLike');
-var Set = require('es-abstract/2023/Set');
+var AdvanceStringIndex = require('es-abstract/2024/AdvanceStringIndex');
+var ArrayCreate = require('es-abstract/2024/ArrayCreate');
+var Call = require('es-abstract/2024/Call');
+var CreateDataPropertyOrThrow = require('es-abstract/2024/CreateDataPropertyOrThrow');
+var Get = require('es-abstract/2024/Get');
+var GetIterator = require('es-abstract/2024/GetIterator');
+var GetMethod = require('es-abstract/2024/GetMethod');
+var IsArray = require('es-abstract/2024/IsArray');
+var IsCallable = require('es-abstract/2024/IsCallable');
+var IsConstructor = require('es-abstract/2024/IsConstructor');
+var IteratorClose = require('es-abstract/2024/IteratorClose');
+var IteratorStep = require('es-abstract/2024/IteratorStep');
+var IteratorValue = require('es-abstract/2024/IteratorValue');
+var LengthOfArrayLike = require('es-abstract/2024/LengthOfArrayLike');
+var Set = require('es-abstract/2024/Set');
 var ToObject = require('es-object-atoms/ToObject');
-var ToString = require('es-abstract/2023/ToString');
-var Type = require('es-abstract/2023/Type');
+var ToString = require('es-abstract/2024/ToString');
 
 var getIteratorMethod = require('es-abstract/helpers/getIteratorMethod');
 
 var getIteratorES = {
 	'AdvanceStringIndex': AdvanceStringIndex,
 	'GetMethod': GetMethod,
-	'IsArray': IsArray,
-	'Type': Type
+	'IsArray': IsArray
 };
 
 var makeThrower = function (err) {
@@ -50,7 +48,7 @@ module.exports = function from(items) {
 
 	if (typeof usingIterator !== 'undefined') {
 		var A = IsConstructor(C) ? new C() : ArrayCreate(0);
-		var iteratorRecord = GetIterator(items, 'sync', usingIterator);
+		var iteratorRecord = GetIterator(items, 'SYNC', usingIterator);
 		var k = 0;
 		while (true) { // eslint-disable-line no-constant-condition
 			if (k >= Math.pow(2, 53) - 1) {

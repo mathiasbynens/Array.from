@@ -9,11 +9,7 @@ module.exports = function shimArrayFrom() {
 	define(
 		Array,
 		{ 'from': polyfill },
-		{
-			'from': function () {
-				return Array.from !== polyfill;
-			}
-		}
+		{ 'from': function () { return Array.from !== polyfill; } }
 	);
 
 	return polyfill;

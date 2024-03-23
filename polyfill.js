@@ -1,8 +1,8 @@
 'use strict';
 
-var Call = require('es-abstract/2023/Call');
-var IsArray = require('es-abstract/2023/IsArray');
-var IsCallable = require('es-abstract/2023/IsCallable');
+var Call = require('es-abstract/2024/Call');
+var IsArray = require('es-abstract/2024/IsArray');
+var IsCallable = require('es-abstract/2024/IsCallable');
 
 var implementation = require('./implementation');
 

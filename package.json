@@ -61,8 +61,8 @@
 		"tape": "^5.7.5"
 	},
 	"dependencies": {
-		"define-properties": "^1.2.0",
-		"es-abstract": "^1.22.1",
+		"define-properties": "^1.2.1",
+		"es-abstract": "^1.23.2",
 		"es-object-atoms": "^1.0.0"
 	},
 	"testling": {
