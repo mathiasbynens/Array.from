@@ -5,6 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v1.1.6](https://github.com/mathiasbynens/Array.from/compare/v1.1.5...v1.1.6) - 2024-03-22
+
+### Commits
+
+- [Deps] update `define-properties`, `es-abstract` [`9f507f0`](https://github.com/mathiasbynens/Array.from/commit/9f507f0d762ea5ee3979c26995a7d9682f09d859)
+- [actions] remove redundant finisher [`4b253a8`](https://github.com/mathiasbynens/Array.from/commit/4b253a8a9f98f8bc6906415cfca93fd53fac7001)
+- [Dev Deps] update `aud`, `npmignore`, `mock-property`, `tape` [`211c9de`](https://github.com/mathiasbynens/Array.from/commit/211c9de003ef570748d2d5c79e5c98b1ee0b7139)
+- [Refactor] use `es-object-atoms` where possible [`8fea459`](https://github.com/mathiasbynens/Array.from/commit/8fea4590d68fc862a02955b9f71f7e68011f22cd)
+- [meta] add missing `engines.node` [`13922dd`](https://github.com/mathiasbynens/Array.from/commit/13922dda47396aa353c329d50274d02e50793166)
+
 ## [v1.1.5](https://github.com/mathiasbynens/Array.from/compare/v1.1.4...v1.1.5) - 2023-08-26
 
 ### Commits
