@@ -15,7 +15,7 @@ var IteratorStep = require('es-abstract/2023/IteratorStep');
 var IteratorValue = require('es-abstract/2023/IteratorValue');
 var LengthOfArrayLike = require('es-abstract/2023/LengthOfArrayLike');
 var Set = require('es-abstract/2023/Set');
-var ToObject = require('es-abstract/2023/ToObject');
+var ToObject = require('es-object-atoms/ToObject');
 var ToString = require('es-abstract/2023/ToString');
 var Type = require('es-abstract/2023/Type');
 
